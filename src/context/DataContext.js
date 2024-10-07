@@ -4,7 +4,7 @@ import { createHabit, getHabits } from '../scripts/habitScript'; // Combine impo
 const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
-    // const [user, setUser] = useState(null); 
+    // const [user, setUser] = useState({});
     const [habits, setHabits] = useState([]);
 
     // Fetch habits from backend when the component mounts
@@ -12,9 +12,7 @@ export const DataProvider = ({ children }) => {
         const fetchHabits = async () => {
             try {
                 const habitData = await getHabits();
-                if (habitData) {
-                    setHabits(habitData.habits); // Set the habit data in state
-                }
+                setHabits(habitData); // Set the habit data in state
             } catch (error) {
                 console.error('Error fetching habits:', error);
             }

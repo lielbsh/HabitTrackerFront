@@ -3,7 +3,7 @@ import { useData } from '../context/DataContext';
 
 const HabitList = () => {
   const { habits } = useData();
-
+  // console.log('habits', habits)
   return (
     <div>
       <h2>Habit List</h2>
