@@ -2,15 +2,17 @@ import axios from 'axios';
 
 const apiEndpoint = 'http://localhost:8000'; // Replace with your API endpoint
 
-export const logIn = async (userData) => { // input: {userName: '', password: ''}
+export const logIn = async (userData, setUser) => { // input: {userName: '', password: ''}
     return await axios.post(`${apiEndpoint}/login`, userData) 
             .then(res => {
                 console.log('the res.data', res.data)
                 if (res.data.message == 'Login successful') {
                     // getUserInfo
-                    console.log('yayy')
+                    console.log('yayy Login successful')
                     const userId = res.data.userId;
-                    return getUserInfo(userId);
+                    const userInfo = getUserInfo(userId);
+                    setUser(userInfo); // Update global user state
+                    return userInfo; // Return the user info
                 } else {
                     console.log(res.data.message);
                     console.log('res.data.message', res.data.message)

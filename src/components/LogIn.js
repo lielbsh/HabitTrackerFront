@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { logIn } from '../scripts/userScript';
+import { logIn } from '../scripts/userScript'; 
+import { useUserData } from '../context/userContext';
 
 const LogIn = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
+  const { setUser } = useUserData();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,14 +17,27 @@ const LogIn = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log('Form Data:', formData);
-    logIn(formData);
+    
+    try {
+      const loggedInUser = await logIn(formData, setUser); // Call logIn function
+      if (loggedInUser) {
+        setUser(loggedInUser); // Update global user state
+        console.log('User logged in:', loggedInUser);
+      } else {
+        console.error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
+
+    // Reset form after submission
     setFormData({ 
-        username: '',
-        password: '',
-    }); // Reset form after submission
+      username: '',
+      password: '',
+    });
   };
 
   return (

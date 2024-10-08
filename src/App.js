@@ -1,19 +1,20 @@
 import './App.css';
 import AddHabitForm from './components/AddHabitForm';
 import HabitList from './components/HabitList';
-import { DataProvider } from './context/DataContext';
+import LogIn from './components/LogIn';
 
 function App() {
   return (
     <div className="App">
-      <DataProvider>
-        <p>Habit Tracker</p>
       
-        <HabitList/>
-        <div>
-          <AddHabitForm/>
-        </div>
-      </DataProvider>
+      <p>Habit Tracker</p>
+    
+      <HabitList/>
+      <div>
+        <AddHabitForm/>
+      </div>
+      <LogIn/>
+      
     </div>
   );
 }

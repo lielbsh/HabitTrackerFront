@@ -8,18 +8,18 @@ export const DataProvider = ({ children }) => {
     const [habits, setHabits] = useState([]);
 
     // Fetch habits from backend when the component mounts
-    useEffect(() => {
-        const fetchHabits = async () => {
-            try {
-                const habitData = await getHabits();
-                setHabits(habitData); // Set the habit data in state
-            } catch (error) {
-                console.error('Error fetching habits:', error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchHabits = async () => {
+    //         try {
+    //             const habitData = await getHabits();
+    //             setHabits(habitData); // Set the habit data in state
+    //         } catch (error) {
+    //             console.error('Error fetching habits:', error);
+    //         }
+    //     };
       
-        fetchHabits(); // Call the fetch function
-    }, []);
+    //     fetchHabits(); // Call the fetch function
+    // }, []);
 
     return (
         <DataContext.Provider value={{ habits, setHabits }}>

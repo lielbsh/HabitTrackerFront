@@ -14,7 +14,7 @@ export const getHabits = async () => {
 }
 
 // Create a new habit
-export const createHabit = async (newHabit) => {
+export const createHabit = async (newHabit) => {  // the userId is inside the newHabit
     try {
         const res = await axios.post(api, newHabit);
         return res.data; // Return the newly created habit
