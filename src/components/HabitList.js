@@ -8,9 +8,9 @@ const HabitList = () => {
     <div>
       <h2>Habit List</h2>
       <ul>
-        {habits.map((habit) => (
+        {/* {habits.map((habit) => (
           <li key={habit._id}>{habit.name}</li>
-        ))}
+        ))} */}
       </ul>
     </div>
   );
