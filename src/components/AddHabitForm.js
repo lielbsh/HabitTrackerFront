@@ -14,12 +14,12 @@ const AddHabitForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submit behavior (page reload)
 
-    // Set userId from the user context
+    // Construct habit data with userId
     const habitData = { ...formData, userId: user._id }; 
 
     try {
       // Send the habit to the backend!
-      const newHabit = await createHabit(habitData); //help here
+      const newHabit = await createHabit(habitData); 
       
       // Update the user state with new habit (assuming habits is an array)
       const updatedUser = {
@@ -28,7 +28,7 @@ const AddHabitForm = () => {
       };
       setUser(updatedUser); // Update user context with new habits
 
-      console.log('Habit added, formData:', habitData);
+      console.log('Habit added:', newHabit);
       setFormData({ name: '', description: '' }); // Reset form after submission
     } catch (error) {
       console.error('Error adding habit:', error);

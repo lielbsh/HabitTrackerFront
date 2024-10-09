@@ -17,8 +17,9 @@ const api = 'http://localhost:8000/habits'
 export const createHabit = async (newHabit) => {  // the userId is inside the newHabit
     return await axios.post(api, newHabit)
         .then(res => {
-           return res.data.habit
-    })
+            console.log('res.data',res.data)
+            return res.data.habit
+        })
 
         .catch (error => {
         console.error('Error creating habit:', error)
@@ -26,10 +27,22 @@ export const createHabit = async (newHabit) => {  // the userId is inside the ne
     })       
 }
    
-    
-    // try {
-    //     const req = await axios.post(api, newHabit);
-    //     return req.data; // Return the newly created habit
-    
+// Delete a habit
+export const deleteHabit = async (habitId, userId) => {  
+    return await axios.delete(`${api}/${habitId}`, {
+        headers: {
+            'user-id': userId
+        }
+    })
+    .then(res => {
+        return res.data.habits;
+    })
+    .catch(error => {
+        console.error('Error deleting habit:', error);
+        return null;
+    });
+}
+
+
 
 
