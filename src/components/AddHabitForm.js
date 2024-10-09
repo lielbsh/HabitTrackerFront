@@ -18,22 +18,28 @@ const AddHabitForm = () => {
     const habitData = { ...formData, userId: user._id }; 
 
     try {
-      // Send the habit to the backend!
-      const newHabit = await createHabit(habitData); 
-      
-      // Update the user state with new habit (assuming habits is an array)
-      const updatedUser = {
-        ...user,
-        habits: [...(user.habits || []), newHabit], 
-      };
-      setUser(updatedUser); // Update user context with new habits
+        // Send the habit to the backend!
+        const newHabit = await createHabit(habitData); 
+        
+        // Check if newHabit is returned correctly
+        if (newHabit) {
+            // Update the user state with new habit
+            const updatedUser = {
+                ...user,
+                habits: [...(user.habits || []), newHabit], 
+            };
+            setUser(updatedUser); // Update user context with new habits
 
-      console.log('Habit added:', newHabit);
-      setFormData({ name: '', description: '' }); // Reset form after submission
+            console.log('Habit added:', newHabit);
+            // Reset form after successful submission
+            setFormData({ name: '', description: '', frequency: '' });
+        } else {
+            console.error('Failed to add habit: No habit returned from backend');
+        }
     } catch (error) {
-      console.error('Error adding habit:', error);
+        console.error('Error adding habit:', error.response?.data || error.message);
     }
-  };
+};
 
   // Handle input change
   const handleChange = (e) => {
