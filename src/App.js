@@ -1,22 +1,19 @@
-import './App.css';
-import AddHabitForm from './components/AddHabitForm';
-import HabitList from './components/HabitList';
-import LogIn from './components/LogIn';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './screens/HomePage'; 
+import AuthPage from './screens/AuthPage'; 
+import Register from './screens/Register';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      
-      <p>Habit Tracker</p>
-    
-      <HabitList/>
-      <div>
-        <AddHabitForm/>
-      </div>
-      <LogIn/>
-      
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<AuthPage />} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/home" element={<HomePage />} /> 
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

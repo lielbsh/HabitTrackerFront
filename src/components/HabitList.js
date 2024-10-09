@@ -6,12 +6,19 @@ const HabitList = () => {
 
     if (!user || !user.habits || user.habits.length === 0) {
         return <p>No habits found.</p>;
+    } else {
+        console.log('all user habits:' ,user.habits)
     }
 
     return (
         <ul>
             {user.habits.map((habit) => (
-                <li key={habit._id}>{habit.name}</li> // Adjust according to your habit object structure
+                <li key={habit._id}>
+                <h3>{habit.name}</h3>
+                <p>{habit.description}</p>
+                <p>Frequency: {habit.frequency}</p>
+                {/* <p>Streak: {habit.streak}</p> */}
+              </li>
             ))}
         </ul>
     );

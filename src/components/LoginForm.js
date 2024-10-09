@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { logIn } from '../scripts/userScript'; 
 import { useUserData } from '../context/userContext';
+import { useNavigate } from 'react-router-dom';
 
-const LogIn = () => {
+const LoginForm = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
   const { setUser } = useUserData();
+  const navigate = useNavigate(); // Initialize useHistory hook
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,6 +28,7 @@ const LogIn = () => {
       if (loggedInUser) {
         setUser(loggedInUser); // Update global user state
         console.log('User logged in:', loggedInUser);
+        navigate('/home'); // Redirect to HomePage
       } else {
         console.error('Login failed');
       }
@@ -71,4 +74,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default LoginForm;

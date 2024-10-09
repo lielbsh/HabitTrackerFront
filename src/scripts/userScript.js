@@ -32,8 +32,9 @@ export const getUserInfo = async (id) => {
         params: { userId: id }, 
     })
         .then( res => {
-            console.log('res', res)
+            console.log('res.data', res.data)
             return(res.data)
         }) 
 
 };
+

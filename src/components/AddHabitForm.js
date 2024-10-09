@@ -7,6 +7,7 @@ const AddHabitForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
+    frequency: '',
   });
 
   // Handle form submission
@@ -17,13 +18,13 @@ const AddHabitForm = () => {
     const habitData = { ...formData, userId: user._id }; 
 
     try {
-      // Send the habit to the backend
-      await createHabit(habitData); 
-    
+      // Send the habit to the backend!
+      const newHabit = await createHabit(habitData); //help here
+      
       // Update the user state with new habit (assuming habits is an array)
       const updatedUser = {
         ...user,
-        habits: [...(user.habits || []), habitData], 
+        habits: [...(user.habits || []), newHabit], 
       };
       setUser(updatedUser); // Update user context with new habits
 
@@ -66,6 +67,18 @@ const AddHabitForm = () => {
           required
         />
       </label>
+      <br />
+      <select
+        name="frequency"
+        value={formData.frequency}
+        onChange={handleChange}
+        required
+      >
+        <option value="">Select Frequency</option>
+        <option value="Daily">Daily</option>
+        <option value="Weekly">Weekly</option>
+        <option value="Monthly">Monthly</option>
+      </select>
       <br />
       <button type="submit">Add Habit</button> {/* Submit button */}
     </form>

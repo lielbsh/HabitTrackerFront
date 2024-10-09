@@ -1,11 +1,11 @@
-import { createContext, useState, useEffect, useContext } from 'react';
-import { createHabit, getHabits } from '../scripts/habitScript'; // Combine import statements
+// import { createContext, useState, useEffect, useContext } from 'react';
+// import { createHabit } from '../scripts/habitScript'; // Combine import statements
 
-const DataContext = createContext();
+// const DataContext = createContext();
 
-export const DataProvider = ({ children }) => {
+// export const DataProvider = ({ children }) => {
     // const [user, setUser] = useState({});
-    const [habits, setHabits] = useState([]);
+    // const [habits, setHabits] = useState([]);
 
     // Fetch habits from backend when the component mounts
     // useEffect(() => {
@@ -21,14 +21,14 @@ export const DataProvider = ({ children }) => {
     //     fetchHabits(); // Call the fetch function
     // }, []);
 
-    return (
-        <DataContext.Provider value={{ habits, setHabits }}>
-            {children}
-        </DataContext.Provider>
-    );
-};
+//     return (
+//         <DataContext.Provider value={{ habits, setHabits }}>
+//             {children}
+//         </DataContext.Provider>
+//     );
+// };
 
-// Custom hook to use the DataContext
-export const useData = () => {
-    return useContext(DataContext);
-};
+// // Custom hook to use the DataContext
+// export const useData = () => {
+//     return useContext(DataContext);
+// };
