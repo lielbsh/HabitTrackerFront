@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { useUserData } from '../context/userContext'; 
+import { logIn } from '../scripts/userScript'; 
+import { useUserData } from '../context/userContext';
+import { useNavigate } from 'react-router-dom';
 
-const Signup = () => {
+const Login = () => {
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
     password: '',
   });
-
   const { setUser } = useUserData();
+  const navigate = useNavigate(); 
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,11 +20,29 @@ const Signup = () => {
     }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const loggedInUser = await logIn(formData, setUser);
+      if (loggedInUser._id) {
+        setUser(loggedInUser)
+        navigate('/home')
+      } else {
+        setErrorMessage('Invalid username or password');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      setErrorMessage('An unexpected error occurred. Please try again.');
+    }
+
+    setFormData({ username: '', password: '' });
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background-yellow">
-      <div className="p-8 bg-white rounded-lg shadow-lg max-w-md w-full space-y-6">
-        <h2 className="text-3xl font-bold text-grayCustom text-center">Create an Account</h2>
-        <form className="space-y-4">
+    <div className="flex items-center justify-center min-h-screen bg-background-lightPurple">
+      <div className="p-6 bg-white rounded-lg shadow-lg max-w-md w-full space-y-6">
+        <h2 className="text-2xl font-bold text-grayCustom text-center">Welcome Back!</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="username" className="block text-grayCustom font-semibold">Username</label>
             <input
@@ -33,19 +53,6 @@ const Signup = () => {
               onChange={handleChange}
               className="w-full mt-1 p-3 rounded-lg bg-background-offwhite border-2 border-gray-300 focus:border-pink focus:outline-none focus:ring focus:ring-pink focus:ring-opacity-50"
               placeholder="Enter your username"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className="block text-grayCustom font-semibold">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full mt-1 p-3 rounded-lg bg-background-offwhite border-2 border-gray-300 focus:border-greenPrimary focus:outline-none focus:ring focus:ring-greenPrimary focus:ring-opacity-50"
-              placeholder="Enter your email"
               required
             />
           </div>
@@ -62,19 +69,20 @@ const Signup = () => {
               required
             />
           </div>
+          {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
           <button
             type="submit"
             className="w-full py-3 px-4 bg-mustard text-white rounded-full shadow-md hover:bg-pink transition duration-300 transform hover:scale-105"
           >
-            Sign Up
+            Log In
           </button>
         </form>
         <p className="text-center text-grayCustom">
-          Already have an account? <a href="/" className="text-pink font-bold hover:underline">Log in</a>
+          Don’t have an account? <a href="/signup" className="text-pink font-bold hover:underline">Sign up</a>
         </p>
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Login;
