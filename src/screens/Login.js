@@ -45,8 +45,8 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-background-lightPurple">
-      <div className="p-6 bg-white rounded-lg shadow-lg max-w-md w-full space-y-6">
-        <h2 className="text-2xl font-bold text-grayCustom text-center">Welcome Back!</h2>
+      <div className="p-8 bg-white rounded-lg shadow-lg max-w-md w-full space-y-8 ">
+        <h2 className="text-3xl font-bold text-grayCustom text-center">Welcome Back!</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="username" className="block text-grayCustom font-semibold">Username</label>
@@ -89,3 +89,7 @@ const Login = () => {
 };
 
 export default Login;
+
+
+
+

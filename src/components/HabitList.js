@@ -1,14 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useUserData } from '../context/userContext'; 
-import { deleteHabit } from '../scripts/habitScript';
+import HabitItem from './HabitItem'; // Import your HabitItem component
+import { deleteHabit, filterHabitsByFrequency } from '../scripts/habitScript';
+// import { handleComplete } from '../scripts/habitScript';
 
 const HabitList = () => {
-    const { user, setUser } = useUserData();
+    const { user, setUser, habits, setHabits } = useUserData();
+    
+   // Use effect to filter habits based on user's habits
+    useEffect(() => {
+        console.log('rerander')
+        if (user && user.habits) {
+            setHabits(filterHabitsByFrequency(user.habits));
+        }
+        }, [user, setHabits]); // Dependency array includes user and setHabits
+        console.log('habits:',habits)
 
-    if (!user || !user.habits || user.habits.length === 0) {
+    // Check if user or habits data is available
+    if (!user || !user.habits) {
         return (
             <div className="mt-8">
-                <p className="text-gray-500 text-center">No habits found.</p>
+                <p className="text-gray-500 text-center">Loading...</p>
             </div>
         );
     }
@@ -25,58 +37,74 @@ const HabitList = () => {
         }
     };
 
-     // Get background color based on habit frequency
-     const getHabitBgColor = (freq) => {
-        switch (freq) {
-            case 'Daily':
-                return 'bg-background-lightGreen'; 
-            case 'Weekly':
-                return 'bg-background-lightPink'; 
-            case 'Monthly':
-                return 'bg-background-babyBlue';
-            default:
-                return 'bg-background-offwhite'; 
-        }
-    };
-
     return (
         <section className="container mx-auto px-4 py-8">
             <h2 className="text-2xl font-bold mb-6">
                 Your Habits
             </h2>
-            <ul className="space-y-4">
-            {user.habits.map((habit) => (
-                    <li key={habit._id} className={`relative rounded-lg shadow-md p-4 flex justify-between items-center ${getHabitBgColor(habit.frequency)}`}>
-                        {/* Habit Title */}
-                        <div className="flex-1">
-                            <h3 className="text-xl font-semibold text-dark">{habit.name}</h3>
-                            <p className="text-grayCustom">{habit.description}</p>
-                            <p className="text-gray-400 mt-2">Frequency: {habit.frequency}</p>
-                        </div>
-                        
-                        {/* Check Button */}
-                        <button
-                            className="mr-2 bg-teal-50 hover:bg-pink text-gray-400 rounded-full p-2 transition-colors duration-200"
-                            aria-label="Mark as complete"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                        </button>
 
-                        {/* Delete Button */}
-                        <button
-                            onClick={() => handleDelete(habit._id)}
-                            className="bg-inherit hover:bg-red-400 text-white rounded-full p-1 transition-colors duration-200"
-                            aria-label={`Delete habit ${habit.name}`}
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </li>
-                ))}
-            </ul>
+            {habits.daily.length > 0 && (
+                <>
+                    <div className="mb-4">
+                        <h3 className="text-xl font-semibold mb-3">Daily</h3>
+                        <ul className="space-y-4">
+                            {habits.daily.map((habit) => (
+                                <HabitItem 
+                                    key={habit._id}
+                                    handleDelete = {handleDelete}
+                                    habit = {habit}
+                                    color={'bg-background-lightGreen'}
+                                    handleComplete={() => {}}
+                                />
+                            ))}
+                        </ul>
+                    </div>
+                </>
+            )}
+
+            {habits.weekly.length > 0 && (
+                <>
+                    <div className="mb-4">
+                        <h3 className="text-xl font-semibold mb-3">Weekly</h3>
+                        <ul className="space-y-4">
+                            {habits.weekly.map((habit) => (
+                                <HabitItem
+                                key={habit._id} 
+                                    handleDelete = {() => handleDelete(habit._id)}
+                                    habit={habit}
+                                    color={'bg-background-lightPink'}
+                                    handleComplete={() => {}}
+                                />
+                            ))}
+                        </ul>
+                    </div>
+                </>
+            )}
+
+            {habits.monthly.length > 0 && (
+                <>
+                    <div className="mb-4">
+                        <h3 className="text-xl font-semibold mb-3">Monthly</h3>
+                        <ul className="space-y-4">
+                            {habits.monthly.map((habit) => (
+                                <HabitItem 
+                                key={habit._id}
+                                    handleDelete = {() => handleDelete(habit._id)}
+                                    habit={habit}
+                                    color={'bg-background-babyBlue'}
+                                    handleComplete={() => {}}
+                                />
+                            ))}
+                        </ul>
+                    </div>
+                </>
+            )}
+
+            {habits.daily.length === 0 && habits.weekly.length === 0 && habits.monthly.length === 0 && (
+                <div className="mt-8">
+                    <p className="text-gray-500 text-center">No habits found.</p>
+                </div>
+            )}
         </section>
     );
 };

@@ -43,6 +43,43 @@ export const deleteHabit = async (habitId, userId) => {
     });
 }
 
+// Handle Complete
+export const handleComplete = async (habitId, userId) => {  
+    return await axios.delete(`${api}/${habitId}`, {
+        headers: {
+            'user-id': userId
+        }
+    })
+    .then(res => {
+        return res.data.habits;
+    })
+    .catch(error => {
+        console.error('Error deleting habit:', error);
+        return null;
+    });
+}
 
+
+
+
+
+export const filterHabitsByFrequency = (habits) => {
+    const separated = {
+        daily: [],
+        weekly: [],
+        monthly: [],
+    };
+
+    habits.forEach(habit => {
+        if (habit.frequency === 'Daily') {
+            separated.daily.push(habit);
+        } else if (habit.frequency === 'Weekly') {
+            separated.weekly.push(habit);
+        } else if (habit.frequency === 'Monthly') {
+            separated.monthly.push(habit);
+        }
+    });
+    return separated;
+};
 
 

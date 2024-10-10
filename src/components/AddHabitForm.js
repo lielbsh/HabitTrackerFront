@@ -100,7 +100,7 @@ const AddHabitForm = () => {
           ></textarea>
         </label>
 
-        <label className="block mb-6">
+        <label className="block mb-4">
           <span className="text-grayCustom">Frequency</span>
           <select
             name="frequency"
@@ -115,6 +115,17 @@ const AddHabitForm = () => {
             <option value="Monthly">Monthly</option>
           </select>
         </label>
+
+        <label htmlFor="start-date" className="block mb-6">
+          <span className="text-grayCustom">Start Date</span>
+          <input
+            type="date"
+            id="start-date"
+            name="start-date"
+            className="mt-1 block w-full p-3 rounded-lg bg-background-offwhite border-2 border-gray-300 focus:border-pink focus:outline-none focus:ring focus:ring-pink focus:ring-opacity-50"
+            required
+          />
+      </label>
 
         <SubmitButton isSubmitting={isSubmitting} text="Add Habit" />
       </form>
