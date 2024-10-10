@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createHabit } from '../scripts/habitScript';
 import { useUserData } from '../context/userContext';
+import SubmitButton from './SubmitButton'
 
 const AddHabitForm = () => {
   const { user, setUser } = useUserData();
@@ -9,12 +10,18 @@ const AddHabitForm = () => {
     description: '',
     frequency: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState({ type: '', message: '' });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const habitData = { ...formData, userId: user._id };
 
+    setIsSubmitting(true);
+    setFeedback({ type: '', message: '' });
+
     try {
+      console.log(habitData)
       const newHabit = await createHabit(habitData);
 
       if (newHabit) {
@@ -24,9 +31,14 @@ const AddHabitForm = () => {
         };
         setUser(updatedUser);
         setFormData({ name: '', description: '', frequency: '' });
+        setFeedback({ type: 'success', message: 'Habit added successfully!' });
       }
     } catch (error) {
-      console.error('Error adding habit:', error.response?.data || error.message);
+      const errorMsg = error.message || 'Error adding habit.';
+      setFeedback({ type: 'error', message: errorMsg });
+      console.error('Error adding habit:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -39,70 +51,74 @@ const AddHabitForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-lg shadow-xl border-2 border-purple-300 relative"
-    >
-      <h2 className="text-2xl font-semibold text-purple-400 mb-4">
-        Add a New Habit
-      </h2>
-      <label className="block mb-2">
-        <span className="text-gray-700">Habit Name:</span>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          className="block w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring-yellow-500 focus:border-yellow-500"
-        />
-      </label>
-      <label className="block mb-2">
-        <span className="text-gray-700">Description:</span>
-        <input
-          type="text"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          required
-          className="block w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring-yellow-500 focus:border-yellow-500"
-        />
-      </label>
-      <label className="block mb-4">
-        <span className="text-gray-700">Frequency:</span>
-        <select
-          name="frequency"
-          value={formData.frequency}
-          onChange={handleChange}
-          required
-          className="block w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring-yellow-500 focus:border-yellow-500"
-        >
-          <option value="">Select Frequency</option>
-          <option value="Daily">Daily</option>
-          <option value="Weekly">Weekly</option>
-          <option value="Monthly">Monthly</option>
-        </select>
-      </label>
-      <button
-        type="submit"
-        className="w-full bg-yellow-500 text-white font-semibold py-2 rounded-md hover:bg-purple-400 transition duration-200"
+    <div className="flex justify-center mt-8 px-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-background-lightPurple p-6 rounded-lg shadow-xl border-2 border-purple-300 relative w-full max-w-md"
       >
-        Add Habit
-      </button>
-      <div className="absolute -top-5 -right-5">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          className="bi bi-star text-purple-300 w-12 h-12"
-          viewBox="0 0 16 16"
-        >
-          <path
-            fillRule="evenodd"
-            d="M7.247 1.047c-.46-.92-1.778-.92-2.239 0L3.12 3.278l-2.621.383c-.958.14-1.341 1.316-.646 1.986l1.898 1.851-.448 2.614c-.163.95.832 1.675 1.68 1.228L8 10.566l2.355 1.238c.848.447 1.843-.278 1.68-1.228l-.448-2.614 1.898-1.851c.695-.67.312-1.846-.646-1.986l-2.621-.383L8.753 1.047zM8 4.27l.79 1.601.361.733.805.117 1.77.256-1.28 1.245-.512.497.121.706.318 1.86L8 9.587 6.627 10.95l.318-1.86.121-.706-.512-.497-1.28-1.245 1.77-.256.805-.117.361-.733L8 4.27z"
+        <h2 className="text-2xl font-semibold text-white mb-6 text-center">
+          Add a New Habit
+        </h2>
+
+        {/* Feedback Messages */}
+        {feedback.message && (
+          <div
+            className={`mb-4 p-3 rounded-md text-center ${
+              feedback.type === 'success'
+                ? 'bg-green-100 text-green-700'
+                : 'bg-red-100 text-red-700'
+            }`}
+            role="alert"
+          >
+            {feedback.message}
+          </div>
+        )}
+
+        <label className="block mb-4">
+          <span className="text-grayCustom">Habit Name</span>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            placeholder="e.g., Morning Jog"
+            className="block w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring-pink focus:border-pink transition duration-200"
           />
-        </svg>
-      </div>
-    </form>
+        </label>
+
+        <label className="block mb-4">
+          <span className="text-grayCustom">Description</span>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+            placeholder="Describe your habit..."
+            rows="3"
+            className="block w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring-pink focus:border-pink transition duration-200"
+          ></textarea>
+        </label>
+
+        <label className="block mb-6">
+          <span className="text-grayCustom">Frequency</span>
+          <select
+            name="frequency"
+            value={formData.frequency}
+            onChange={handleChange}
+            required
+            className="block w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring-pink focus:border-pink transition duration-200"
+          >
+            <option value="">Select Frequency</option>
+            <option value="Daily">Daily</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Monthly">Monthly</option>
+          </select>
+        </label>
+
+        <SubmitButton isSubmitting={isSubmitting} text="Add Habit" />
+      </form>
+    </div>
   );
 };
 

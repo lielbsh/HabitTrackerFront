@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { logIn } from '../scripts/userScript'; 
 import { useUserData } from '../context/userContext';
 import { useNavigate } from 'react-router-dom';
+import SubmitButton from '../components/SubmitButton';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const Login = () => {
   const { setUser } = useUserData();
   const navigate = useNavigate(); 
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); // State for submitting status
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,20 +24,23 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true); // Set submitting state to true
+
     try {
       const loggedInUser = await logIn(formData, setUser);
       if (loggedInUser._id) {
-        setUser(loggedInUser)
-        navigate('/home')
+        setUser(loggedInUser);
+        navigate('/home');
       } else {
         setErrorMessage('Invalid username or password');
       }
     } catch (error) {
       console.error('Error during login:', error);
       setErrorMessage('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false); // Reset submitting state regardless of the outcome
+      setFormData({ username: '', password: '' }); // Reset form data
     }
-
-    setFormData({ username: '', password: '' });
   };
 
   return (
@@ -64,18 +69,16 @@ const Login = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full mt-1 p-3 rounded-lg bg-background-offwhite border-2 border-gray-300 focus:border-purple focus:outline-none focus:ring focus:ring-purple focus:ring-opacity-50"
+              className="w-full mt-1 p-3 rounded-lg bg-background-offwhite border-2 border-gray-300 focus:border-pink focus:outline-none focus:ring focus:ring-pink focus:ring-opacity-50"
               placeholder="Enter your password"
               required
             />
           </div>
           {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
-          <button
-            type="submit"
-            className="w-full py-3 px-4 bg-mustard text-white rounded-full shadow-md hover:bg-pink transition duration-300 transform hover:scale-105"
-          >
-            Log In
-          </button>
+          <SubmitButton
+            isSubmitting={isSubmitting} // Pass the submitting state to the button
+            text={'Log In'}
+          />
         </form>
         <p className="text-center text-grayCustom">
           Don’t have an account? <a href="/signup" className="text-pink font-bold hover:underline">Sign up</a>

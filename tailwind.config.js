@@ -11,17 +11,17 @@ module.exports = {
       colors: {
         // Background Colors
         background: {
-          yellow: '#fffde0',
-          green: '#dbdbbb',
-          offwhite: '#f3ebd8',
-          lightPurple: '#dac0f8', 
+          lightYellow: '#fffde0',
+          lightGreen: '#d8fab1',
+          lightPurple: '#e3d0f9',
+          lightPink:'#ffcece', 
+          babyBlue: '#d0fcfd',
         },
         // Primary Colors
         mustard: '#e3921c',
-        pink: '#f9a69e',
-        greenPrimary: '#afaf8b', 
+        pink: '#ff3a97',
         grayCustom: '#545454', 
-        dark: '#3c3333',
+        dark: '#2a2626',
         purple: {
           100: '#ede7f6',
           200: '#d1c4e9',

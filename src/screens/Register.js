@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useUserData } from '../context/userContext'; 
+import SubmitButton from '../components/SubmitButton';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const Signup = () => {
   });
 
   const { setUser } = useUserData();
+  const [isSubmitting, setIsSubmitting] = useState(false); // State for submitting status
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,11 +20,22 @@ const Signup = () => {
     }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    setIsSubmitting(true); // Set submitting state to true
+
+    console.log('Trying to register:', formData); // Log the form data
+
+    // Reset form and submitting state after logging
+    setFormData({ username: '', email: '', password: '' });
+    setIsSubmitting(false);
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background-yellow">
+    <div className="flex items-center justify-center min-h-screen bg-background-lightYellow">
       <div className="p-8 bg-white rounded-lg shadow-lg max-w-md w-full space-y-6">
         <h2 className="text-3xl font-bold text-grayCustom text-center">Create an Account</h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="username" className="block text-grayCustom font-semibold">Username</label>
             <input
@@ -62,12 +75,10 @@ const Signup = () => {
               required
             />
           </div>
-          <button
-            type="submit"
-            className="w-full py-3 px-4 bg-mustard text-white rounded-full shadow-md hover:bg-pink transition duration-300 transform hover:scale-105"
-          >
-            Sign Up
-          </button>
+          <SubmitButton
+            isSubmitting={isSubmitting} // Pass the submitting state to the button
+            text={'Sign Up'}
+          />
         </form>
         <p className="text-center text-grayCustom">
           Already have an account? <a href="/" className="text-pink font-bold hover:underline">Log in</a>

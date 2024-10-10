@@ -25,24 +25,38 @@ const HabitList = () => {
         }
     };
 
+     // Get background color based on habit frequency
+     const getHabitBgColor = (freq) => {
+        switch (freq) {
+            case 'Daily':
+                return 'bg-background-lightGreen'; 
+            case 'Weekly':
+                return 'bg-background-lightPink'; 
+            case 'Monthly':
+                return 'bg-background-babyBlue';
+            default:
+                return 'bg-background-offwhite'; 
+        }
+    };
+
     return (
         <section className="container mx-auto px-4 py-8">
-            <h2 className="text-2xl font-bold text-purple-900 mb-6">
+            <h2 className="text-2xl font-bold mb-6">
                 Your Habits
             </h2>
             <ul className="space-y-4">
-                {user.habits.map((habit) => (
-                    <li key={habit._id} className="relative bg-purple-100 rounded-lg shadow-md p-4 flex justify-between items-center">
+            {user.habits.map((habit) => (
+                    <li key={habit._id} className={`relative rounded-lg shadow-md p-4 flex justify-between items-center ${getHabitBgColor(habit.frequency)}`}>
                         {/* Habit Title */}
                         <div className="flex-1">
-                            <h3 className="text-xl font-semibold text-purple-800">{habit.name}</h3>
+                            <h3 className="text-xl font-semibold text-dark">{habit.name}</h3>
                             <p className="text-grayCustom">{habit.description}</p>
-                            <p className="text-mustard mt-2">Frequency: {habit.frequency}</p>
+                            <p className="text-gray-400 mt-2">Frequency: {habit.frequency}</p>
                         </div>
                         
                         {/* Check Button */}
                         <button
-                            className="mr-2 bg-greenPrimary hover:bg-pink text-stone-100 rounded-full p-2 transition-colors duration-200"
+                            className="mr-2 bg-teal-50 hover:bg-pink text-gray-400 rounded-full p-2 transition-colors duration-200"
                             aria-label="Mark as complete"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
