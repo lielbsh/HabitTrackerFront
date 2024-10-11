@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createHabit } from '../scripts/habitScript';
+import { createHabit } from '../api/habitScript';
 import { useUserData } from '../context/userContext';
 import SubmitButton from './SubmitButton'
 

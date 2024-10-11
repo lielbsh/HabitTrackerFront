@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import { useUserData } from '../context/userContext'; 
 import HabitItem from './HabitItem'; // Import your HabitItem component
-import { deleteHabit, filterHabitsByFrequency } from '../scripts/habitScript';
-import { handleComplete } from '../scripts/habitScript';
+import { deleteHabit, completeHabit } from '../api/habitScript';
+import  { filterHabitsByFrequency, isHabitCompleted, updateHabitCompletion } from '../utils/habitHelpers'
 
 const HabitList = () => {
     const { user, setUser, habits, setHabits } = useUserData();
@@ -17,7 +17,7 @@ const HabitList = () => {
         console.log('habits:',habits)
 
     // Check if user or habits data is available
-    if (!user || !user.habits) {
+    if (!user.habits) {
         return (
             <div className="mt-8">
                 <p className="text-gray-500 text-center">Loading...</p>
@@ -37,15 +37,22 @@ const HabitList = () => {
         }
     };
 
-    //
+    // Function to handle completing a habit
     const handleComplete = async (habitToCheck) => {
-        try {
-            updatedHabits = await handleComplete(habitToCheck)
-            setUser({ ...user, habits: updatedHabits })
-        } catch (error) {
-            console.error('Error:', error);
-        }
+    try {
+        // Update the habit localy and check for streaks
+        setHabits((prevHabits) => updateHabitCompletion(prevHabits, habitToCheck));
+        console.log('Habit completion and streak updated:', new Date());
+
+        // completeHabit(habitToCheck);
+
+
+    } catch (error) {
+        console.error('Error:', error);
     }
+    };
+
+   
 
     return (
         <section className="container mx-auto px-4 py-8">
@@ -64,7 +71,8 @@ const HabitList = () => {
                                     handleDelete = {handleDelete}
                                     habit = {habit}
                                     color={'bg-background-lightGreen'}
-                                    handleComplete={() => {}}
+                                    handleComplete={handleComplete}
+                                    isCompleted = {isHabitCompleted(habit)}
                                 />
                             ))}
                         </ul>
@@ -83,7 +91,8 @@ const HabitList = () => {
                                     handleDelete = {() => handleDelete(habit._id)}
                                     habit={habit}
                                     color={'bg-background-lightPink'}
-                                    handleComplete={() => handleComplete(habit)}
+                                    handleComplete={handleComplete}
+                                    isCompleted = {isHabitCompleted(habit)}
                                 />
                             ))}
                         </ul>
@@ -98,13 +107,14 @@ const HabitList = () => {
                         <ul className="space-y-4">
                             {habits.monthly.map((habit) => (
                                 <HabitItem 
-                                key={habit._id}
+                                    key={habit._id}
                                     handleDelete = {() => handleDelete(habit._id)}
                                     habit={habit}
                                     color={'bg-background-babyBlue'}
-                                    handleComplete={() => {}}
+                                    handleComplete={handleComplete}
+                                    isCompleted = {isHabitCompleted(habit)}
                                 />
-                            ))}
+                            ))} 
                         </ul>
                     </div>
                 </>

@@ -1,9 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-const HabitItem = ({ habit, color, handleDelete, handleComplete }) => {
+const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted }) => {
+    const [showGif, setShowGif] = useState(false);
+
+    const handleCompleteClick = (habit) => {
+        handleComplete(habit);
+        setShowGif(true); // Show the GIF when the habit is marked complete
+
+        setTimeout(() => {
+            setShowGif(false); // Hide the GIF after 2 seconds
+        }, 1100); // Adjust this duration as needed
+    };
+
     return ( 
+        <>
         <li 
-            className={`relative rounded-lg shadow-md p-4 flex justify-between items-center ${color}`} 
+            className={`relative rounded-lg shadow-md p-4 flex justify-between items-center 
+            ${isCompleted ? `${color} opacity-40` : color}`}
             key ={ habit._id}
         >
             {/* Habit Title */}
@@ -15,8 +28,9 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete }) => {
             
             {/* Check Button */}
             <button
-                onClick={() => handleComplete(habit._id)}
-                className="mr-2 bg-teal-50 hover:bg-pink text-gray-400 rounded-full p-2 transition-colors duration-200"
+                onClick={() => { handleCompleteClick(habit); }}
+                className={`mr-2 rounded-full p-2 transition-colors duration-200 
+                    ${isCompleted ? 'bg-mustard text-dark' : 'bg-teal-50 hover:bg-pink text-gray-400'}`}
                 aria-label="Mark as complete"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -35,6 +49,13 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete }) => {
                 </svg>
             </button>
         </li>
+        {/* Animated GIF */}
+        {showGif && (
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <img src="..\..\icons\yellow-v.gif" className="w-15 h-15 object-cover" alt="Completed" />
+                </div>
+            )}
+        </>
     );
 }
 

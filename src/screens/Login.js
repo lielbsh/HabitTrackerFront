@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { logIn } from '../scripts/userScript'; 
+import { logIn } from '../api/userScript'; 
 import { useUserData } from '../context/userContext';
 import { useNavigate } from 'react-router-dom';
 import SubmitButton from '../components/SubmitButton';
@@ -44,7 +44,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background-lightPurple">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-purple-100 via-background-lightPurple to-purple-500 h-screen">
       <div className="p-8 bg-white rounded-lg shadow-lg max-w-md w-full space-y-8 ">
         <h2 className="text-3xl font-bold text-grayCustom text-center">Welcome Back!</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -84,14 +84,14 @@ const Login = () => {
           Don’t have an account? <a href="/signup" className="text-pink font-bold hover:underline">Sign up</a>
         </p>
       </div>
-      <img
-        src="/images/backgroundVines.png"
-        className="absolute bottom-0 right-0 w-20% object-cover opacity-50"
-        alt="Background Vines"
-      />
       {/* <img
         src="/images/backgroundVines.png"
-        className="absolute top-0 left-0 w-20% object-cover opacity-50 rotate-180 "
+        className="absolute bottom-0 right-0 object-cover opacity-50 h-1/2"
+        alt="Background Vines"
+      />
+      <img
+        src="/images/backgroundVines2.png"
+        className="absolute top-40 right-40 object-cover opacity-50 rotate-180 h-1/3"
         alt="Background Vines"
       /> */}
     </div>

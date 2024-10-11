@@ -18,7 +18,7 @@ module.exports = {
           babyBlue: '#d0fcfd',
         },
         // Primary Colors
-        mustard: '#e3921c',
+        mustard: '#FBA01C',
         pink: '#ff3a97',
         grayCustom: '#545454', 
         dark: '#2a2626',
