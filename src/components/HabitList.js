@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { useUserData } from '../context/userContext'; 
 import HabitItem from './HabitItem'; // Import your HabitItem component
 import { deleteHabit, filterHabitsByFrequency } from '../scripts/habitScript';
-// import { handleComplete } from '../scripts/habitScript';
+import { handleComplete } from '../scripts/habitScript';
 
 const HabitList = () => {
     const { user, setUser, habits, setHabits } = useUserData();
@@ -36,6 +36,16 @@ const HabitList = () => {
             console.error('Error deleting habit:', error);
         }
     };
+
+    //
+    const handleComplete = async (habitToCheck) => {
+        try {
+            updatedHabits = await handleComplete(habitToCheck)
+            setUser({ ...user, habits: updatedHabits })
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     return (
         <section className="container mx-auto px-4 py-8">
@@ -73,7 +83,7 @@ const HabitList = () => {
                                     handleDelete = {() => handleDelete(habit._id)}
                                     habit={habit}
                                     color={'bg-background-lightPink'}
-                                    handleComplete={() => {}}
+                                    handleComplete={() => handleComplete(habit)}
                                 />
                             ))}
                         </ul>

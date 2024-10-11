@@ -44,17 +44,17 @@ export const deleteHabit = async (habitId, userId) => {
 }
 
 // Handle Complete
-export const handleComplete = async (habitId, userId) => {  
-    return await axios.delete(`${api}/${habitId}`, {
+export const handleComplete = async (habit) => {  
+    return await axios.update(`${api}/${habit._id}`, {
         headers: {
-            'user-id': userId
+            'user-id': habit.user  // userId
         }
     })
     .then(res => {
         return res.data.habits;
     })
     .catch(error => {
-        console.error('Error deleting habit:', error);
+        console.error('Error Completing habit:', error);
         return null;
     });
 }

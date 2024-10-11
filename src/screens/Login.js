@@ -84,6 +84,16 @@ const Login = () => {
           Don’t have an account? <a href="/signup" className="text-pink font-bold hover:underline">Sign up</a>
         </p>
       </div>
+      <img
+        src="/images/backgroundVines.png"
+        className="absolute bottom-0 right-0 w-20% object-cover opacity-50"
+        alt="Background Vines"
+      />
+      {/* <img
+        src="/images/backgroundVines.png"
+        className="absolute top-0 left-0 w-20% object-cover opacity-50 rotate-180 "
+        alt="Background Vines"
+      /> */}
     </div>
   );
 };
