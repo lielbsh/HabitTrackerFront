@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useUserData } from '../context/userContext'; 
 import HabitItem from './HabitItem'; // Import your HabitItem component
-import { deleteHabit } from '../api/habitScript';
+import { deleteHabit, updateHabit } from '../api/habitScript';
 import  { filterHabitsByFrequency, isHabitCompleted, updateHabitCompletion } from '../utils/habitHelpers'
 
 const HabitList = () => {
@@ -44,14 +44,36 @@ const HabitList = () => {
     // Function to handle completing a habit
     const handleComplete = async (habitToCheck) => {
     try {
-        // Update the habit localy and check for streaks
-        setHabits((prevHabits) => updateHabitCompletion(prevHabits, habitToCheck));
+        // Update the habit and check for streaks
+        setHabits((prevHabits) => updateHabitCompletion(prevHabits, habitToCheck)); // this sends the req to the server
         console.log('Habit completion and streak updated');
+
 
     } catch (error) {
         console.error('Error:', error);
     }
     };
+
+    // Function to handle editing a habit
+    const handleUpdate = async (updatedHabit) => {
+        try {
+            // Update the habit locally
+            setUser((prevUser) => {
+                // Find the index of the habit to update
+                const updatedHabits = prevUser.habits.map((habit) =>
+                    habit._id === updatedHabit._id ? { ...habit, ...updatedHabit } : habit
+                );
+    
+                return { ...prevUser, habits: updatedHabits };
+            });
+
+            // Sends req to the server
+            updateHabit(user.habits[updatedHabit._id]);
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        };
 
 
     return (
@@ -73,6 +95,7 @@ const HabitList = () => {
                                     color={'bg-background-lightGreen'}
                                     handleComplete={handleComplete}
                                     isCompleted = {isHabitCompleted(habit)}
+                                    handleUpdate={handleUpdate}
                                 />
                             ))}
                         </ul>
@@ -93,6 +116,7 @@ const HabitList = () => {
                                     color={'bg-background-lightPink'}
                                     handleComplete={handleComplete}
                                     isCompleted = {isHabitCompleted(habit)}
+                                    handleUpdate={handleUpdate}
                                 />
                             ))}
                         </ul>
@@ -113,6 +137,7 @@ const HabitList = () => {
                                     color={'bg-background-babyBlue'}
                                     handleComplete={handleComplete}
                                     isCompleted = {isHabitCompleted(habit)}
+                                    handleUpdate={handleUpdate}
                                 />
                             ))} 
                         </ul>

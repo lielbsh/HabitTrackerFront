@@ -1,4 +1,4 @@
-import { completeHabit } from '../api/habitScript'
+import { updateHabit } from '../api/habitScript'
 
 // Separates the Habits by their frequencies 
 export const filterHabitsByFrequency = (habits) => {
@@ -74,7 +74,7 @@ export const updateHabitCompletion = (prevHabits, habitToUpdate) => {
     const rearrangedHabits = [...filteredHabits, completedHabit];
     
     // Send request to the server to update the habit in the cloud
-    completeHabit(completedHabit);
+    updateHabit(completedHabit);
 
     // Return the new state with the updated habit
     return {

@@ -33,14 +33,14 @@ export const deleteHabit = async (habitId, userId) => {
     });
     };
 
-// Handle Complete
-export const completeHabit = async (updatedHabit) => {  
-    axios.post(`${api}/complete`, {updatedHabit})
+// Function for updating habit sends the updated habit to the backend
+export const updateHabit = async (updatedHabit) => {  
+    axios.post(`${api}/update`, {updatedHabit})
     .then(
-        console.log('Habit completed!!')
+        console.log('Habit updated!!', updatedHabit)
     )
     .catch(error => {
-        console.error('Error Completing habit:', error);
+        console.error('Error updating habit:', error);
     });
 }
 
