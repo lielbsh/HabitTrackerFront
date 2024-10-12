@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useUserData } from '../context/userContext'; 
 import HabitItem from './HabitItem'; // Import your HabitItem component
-import { deleteHabit, completeHabit } from '../api/habitScript';
+import { deleteHabit } from '../api/habitScript';
 import  { filterHabitsByFrequency, isHabitCompleted, updateHabitCompletion } from '../utils/habitHelpers'
 
 const HabitList = () => {
@@ -27,32 +27,32 @@ const HabitList = () => {
 
     // Function to handle deleting a habit
     const handleDelete = async (habitId) => {
-        try {
-            const updatedHabits = await deleteHabit(habitId, user._id);
-            if (updatedHabits) {
-                setUser({ ...user, habits: updatedHabits });
-            }
+        const updatedHabits = user.habits.filter(habit => habit._id !== habitId);
+        setUser({ ...user, habits: updatedHabits });
+        setHabits(filterHabitsByFrequency(user.habits));
+
+         try {
+        // Make the server request to delete the habit
+        await deleteHabit(habitId, user._id);
+
         } catch (error) {
             console.error('Error deleting habit:', error);
+            setUser({ ...user, habits: originalHabits }); // Revert to original habits
         }
-    };
+};
 
     // Function to handle completing a habit
     const handleComplete = async (habitToCheck) => {
     try {
         // Update the habit localy and check for streaks
         setHabits((prevHabits) => updateHabitCompletion(prevHabits, habitToCheck));
-        console.log('Habit completion and streak updated:', new Date());
-
-        // completeHabit(habitToCheck);
-
+        console.log('Habit completion and streak updated');
 
     } catch (error) {
         console.error('Error:', error);
     }
     };
 
-   
 
     return (
         <section className="container mx-auto px-4 py-8">
