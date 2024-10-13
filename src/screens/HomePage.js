@@ -15,9 +15,9 @@ const HomePage = () => {
         </section>
 
         {/* Add Habit Form */}
-        <section className="md:col-span-1">
+        {/* <section className="md:col-span-1">
           <AddHabitForm />
-        </section>
+        </section> */}
       </main>
 
       <footer className="bg-background-lightPurple p-4">

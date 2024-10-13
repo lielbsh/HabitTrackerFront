@@ -5,7 +5,7 @@ import SubmitButton from './SubmitButton';
 import { filterHabitsByFrequency } from '../utils/habitHelpers';
 
 const AddHabitForm = () => {
-  const { user, setUser, setHabits } = useUserData();
+  const { user, setUser } = useUserData();
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -46,7 +46,7 @@ const AddHabitForm = () => {
         };
 
         setUser(updatedUser);
-        setHabits(filterHabitsByFrequency(updatedUser.habits)); // Update habits with frequency filtering
+        // setHabits(filterHabitsByFrequency(updatedUser.habits)); // Update habits with frequency filtering
 
         setFormData({ name: '', description: '', frequency: '' }); // Reset form fields
         setFeedback({ type: 'success', message: 'Habit added successfully!' });

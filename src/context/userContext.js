@@ -4,13 +4,13 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null); // Store user data globally
-    const [habits, setHabits] = useState({
-        daily: [],
-        weekly: [],
-        monthly: [],
-      });
+    // const [habits, setHabits] = useState({
+    //     daily: [],
+    //     weekly: [],
+    //     monthly: [],
+    //   });
     return (
-        <UserContext.Provider value={{ user, setUser, habits, setHabits }}>
+        <UserContext.Provider value={{ user, setUser }}>
             {children}
         </UserContext.Provider>
     );

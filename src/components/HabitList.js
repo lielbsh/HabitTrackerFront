@@ -1,12 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useUserData } from '../context/userContext'; 
 import HabitItem from './HabitItem'; // Import your HabitItem component
 import { deleteHabit, updateHabit } from '../api/habitScript';
 import  { filterHabitsByFrequency, isHabitCompleted, sortHabitsByCompletion, updateHabitCompletion } from '../utils/habitHelpers'
 
 const HabitList = () => {
-    const { user, setUser, habits, setHabits } = useUserData();
-    
+    const { user, setUser } = useUserData();
+    const [habits, setHabits] = useState({
+        daily: [],
+        weekly: [],
+        monthly: [],
+    });
+
    // Use effect to filter habits based on user's habits
     useEffect(() => {
         if (user && user.habits) {
