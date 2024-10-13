@@ -2,22 +2,22 @@ import React, {useEffect} from 'react';
 import { useUserData } from '../context/userContext'; 
 import HabitItem from './HabitItem'; // Import your HabitItem component
 import { deleteHabit, updateHabit } from '../api/habitScript';
-import  { filterHabitsByFrequency, isHabitCompleted, updateHabitCompletion } from '../utils/habitHelpers'
+import  { filterHabitsByFrequency, isHabitCompleted, sortHabitsByCompletion, updateHabitCompletion } from '../utils/habitHelpers'
 
 const HabitList = () => {
     const { user, setUser, habits, setHabits } = useUserData();
     
    // Use effect to filter habits based on user's habits
     useEffect(() => {
-        console.log('rerander')
         if (user && user.habits) {
-            setHabits(filterHabitsByFrequency(user.habits));
+            setHabits(filterHabitsByFrequency(user.habits)); // Sort habits by frequency
+            sortHabitsByCompletion(setHabits); // Moves completed habits to the end
         }
         }, [user, setHabits]); // Dependency array includes user and setHabits
         console.log('habits:',habits)
 
     // Check if user or habits data is available
-    if (!user.habits) {
+    if (!user) {
         return (
             <div className="mt-8">
                 <p className="text-gray-500 text-center">Loading...</p>
@@ -68,7 +68,9 @@ const HabitList = () => {
             });
 
             // Sends req to the server
-            updateHabit(user.habits[updatedHabit._id]);
+            console.log(user.habits)
+            console.log(updatedHabit)
+            updateHabit(updatedHabit);
 
         } catch (error) {
             console.error('Error:', error);

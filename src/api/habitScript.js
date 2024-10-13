@@ -12,9 +12,9 @@ export const createHabit = async (newHabit) => {  // the userId is inside the ne
         })
 
         .catch (error => {
-        console.error('Error creating habit:', error)
-        return null;
-    })       
+            console.error('Error creating habit:', error)
+            return null;
+        })       
 }
    
 // Delete a habit
@@ -26,7 +26,8 @@ export const deleteHabit = async (habitId, userId) => {
     }
     })
     .then(res => {
-        console.log('Habit deleted successfully:', res.data.habits);
+        console.log('Habit deleted successfully');
+        return(res.data.message)
     })
     .catch(error => {
         console.error('Error deleting habit:', error);

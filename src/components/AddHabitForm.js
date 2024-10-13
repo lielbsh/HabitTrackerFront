@@ -1,27 +1,42 @@
 import React, { useState } from 'react';
 import { createHabit } from '../api/habitScript';
 import { useUserData } from '../context/userContext';
-import SubmitButton from './SubmitButton'
+import SubmitButton from './SubmitButton';
+import { filterHabitsByFrequency } from '../utils/habitHelpers';
 
 const AddHabitForm = () => {
-  const { user, setUser } = useUserData();
+  const { user, setUser, setHabits } = useUserData();
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     frequency: '',
   });
+  const [errors, setErrors] = useState({ name: '' }); // State for error messages
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState({ type: '', message: '' });
 
+  // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Check if name is valid before submitting
+    if (formData.name.length < 3 ) {
+      setErrors((prev) => ({
+        ...prev,
+        name: 'Habit name must be at least 3 letters long.',
+      }));
+      return;
+    }
+
     const habitData = { ...formData, userId: user._id };
 
     setIsSubmitting(true);
     setFeedback({ type: '', message: '' });
 
     try {
-      console.log(habitData)
+      // Sends request to the server
+      console.log('user',user) 
+      console.log('need to have the userId',habitData)
       const newHabit = await createHabit(habitData);
 
       if (newHabit) {
@@ -29,8 +44,11 @@ const AddHabitForm = () => {
           ...user,
           habits: [...(user.habits || []), newHabit],
         };
+
         setUser(updatedUser);
-        setFormData({ name: '', description: '', frequency: '' });
+        setHabits(filterHabitsByFrequency(updatedUser.habits)); // Update habits with frequency filtering
+
+        setFormData({ name: '', description: '', frequency: '' }); // Reset form fields
         setFeedback({ type: 'success', message: 'Habit added successfully!' });
       }
     } catch (error) {
@@ -42,12 +60,27 @@ const AddHabitForm = () => {
     }
   };
 
+  // Handle input changes and perform validation
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+
+    // Validate name for at least 3 letters
+    if (name === 'name' && value.length < 3 && value.length > 0) {
+      setErrors((prev) => ({
+        ...prev,
+        name: 'Habit name must be at least 3 letters long.',
+      }));
+    } else {
+      setErrors((prev) => ({
+        ...prev,
+        name: '', // Clear error if valid
+      }));
+    }
+    setFeedback({ type: '', message: '' });
   };
 
   return (
@@ -85,6 +118,8 @@ const AddHabitForm = () => {
             placeholder="e.g., Morning Jog"
             className="block w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring-pink focus:border-pink transition duration-200"
           />
+          {/* Error Message */}
+          {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
         </label>
 
         <label className="block mb-4">
@@ -123,9 +158,8 @@ const AddHabitForm = () => {
             id="start-date"
             name="start-date"
             className="mt-1 block w-full p-3 rounded-lg bg-background-offwhite border-2 border-gray-300 focus:border-pink focus:outline-none focus:ring focus:ring-pink focus:ring-opacity-50"
-            required
           />
-      </label>
+        </label>
 
         <SubmitButton isSubmitting={isSubmitting} text="Add Habit" />
       </form>

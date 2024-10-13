@@ -27,7 +27,7 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
         e.preventDefault();
         setIsSubmitting(true);
 
-        await handleUpdate(updatedHabit); 
+        handleUpdate(updatedHabit); 
         setIsEditing(false);
         setIsSubmitting(false);
     };
@@ -35,8 +35,8 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
     return (
         <>
             <li
-                className={`relative rounded-lg shadow-md p-4 flex justify-between items-center 
-                ${isCompleted ? `${color} opacity-40` : color}`}
+                className={`relative rounded-lg shadow-md p-4 flex justify-between items-center transition-transform transform-gpu duration-200 hover:ring-4 hover:ring-opacity-75 hover:ring-offset-2 hover:ring-background-lightPurple ${isCompleted ? `${color} brightness-80 opacity-35` : color}`}
+
                 key={habit._id}
                 onClick={() => { setIsEditing(false); setIsExpanded(!isExpanded); console.log(isEditing, isExpanded)}} // Toggle accordion on click
             >
@@ -51,6 +51,7 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
                     className={`mr-2 rounded-full p-2 transition-colors duration-200 
                         ${isCompleted ? 'bg-mustard text-dark' : 'bg-teal-50 hover:bg-pink text-gray-400'}`}
                     aria-label="Mark as complete"
+                    disabled={isCompleted}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

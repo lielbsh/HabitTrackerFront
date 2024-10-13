@@ -120,3 +120,14 @@ export const isHabitCompleted = (habit) => {
     
     return false;
 };
+
+
+
+// Function to sort the habits (called when habits change)
+export const sortHabitsByCompletion = (setHabits) => {
+    setHabits((prevHabits) => ({
+      daily: [...prevHabits.daily].sort((a, b) => isHabitCompleted(a) - isHabitCompleted(b)),
+      weekly: [...prevHabits.weekly].sort((a, b) => isHabitCompleted(a) - isHabitCompleted(b)),
+      monthly: [...prevHabits.monthly].sort((a, b) => isHabitCompleted(a) - isHabitCompleted(b)),
+    }));
+  };

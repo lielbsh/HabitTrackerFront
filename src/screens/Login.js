@@ -28,8 +28,8 @@ const Login = () => {
 
     try {
       const loggedInUser = await logIn(formData, setUser);
-      if (loggedInUser._id) {
-        setUser(loggedInUser);
+      console.log('loggedInUser', loggedInUser)
+      if (loggedInUser) {
         navigate('/home');
       } else {
         setErrorMessage('Invalid username or password');

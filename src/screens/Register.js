@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useUserData } from '../context/userContext'; 
 import SubmitButton from '../components/SubmitButton';
+import { register } from '../api/userScript';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -8,9 +10,9 @@ const Signup = () => {
     email: '',
     password: '',
   });
-
   const { setUser } = useUserData();
   const [isSubmitting, setIsSubmitting] = useState(false); // State for submitting status
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,15 +22,24 @@ const Signup = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
     setIsSubmitting(true); // Set submitting state to true
 
-    console.log('Trying to register:', formData); // Log the form data
+    try {
+      console.log('Trying to register:', formData); // Log the form data
+      await setUser(register(formData, setUser));
+      navigate('/home');
+   
+  } catch (error) {
+    console.error('Error during login:', error);
 
+  } finally {
     // Reset form and submitting state after logging
     setFormData({ username: '', email: '', password: '' });
     setIsSubmitting(false);
+  }
+    
   };
 
   return (
