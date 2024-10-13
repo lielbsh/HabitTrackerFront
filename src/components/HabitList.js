@@ -3,6 +3,9 @@ import { useUserData } from '../context/userContext';
 import HabitItem from './HabitItem'; // Import your HabitItem component
 import { deleteHabit, updateHabit } from '../api/habitScript';
 import  { filterHabitsByFrequency, isHabitCompleted, sortHabitsByCompletion, updateHabitCompletion } from '../utils/habitHelpers'
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
 
 const HabitList = () => {
     const { user, setUser } = useUserData();
@@ -30,6 +33,12 @@ const HabitList = () => {
         );
     }
 
+    const calculateProgress = (habitList) => {
+        const completed = habitList.filter(isHabitCompleted).length;
+        const total = habitList.length;
+        return total === 0 ? 0 : (completed / total) * 100;
+    };
+
     // Function to handle deleting a habit
     const handleDelete = async (habitId) => {
         const updatedHabits = user.habits.filter(habit => habit._id !== habitId);
@@ -42,7 +51,6 @@ const HabitList = () => {
 
         } catch (error) {
             console.error('Error deleting habit:', error);
-            setUser({ ...user, habits: originalHabits }); // Revert to original habits
         }
 };
 
@@ -84,80 +92,110 @@ const HabitList = () => {
 
 
     return (
-        <section className="container mx-auto px-4 py-8">
-            <h2 className="text-2xl font-bold mb-6">
-                Your Habits
-            </h2>
-
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 container mx-auto px-4 py-8">
+            {/* Daily Habits Column */}
             {habits.daily.length > 0 && (
-                <>
-                    <div className="mb-4">
-                        <h3 className="text-xl font-semibold mb-3">Daily</h3>
-                        <ul className="space-y-4">
-                            {habits.daily.map((habit) => (
-                                <HabitItem 
-                                    key={habit._id}
-                                    handleDelete = {handleDelete}
-                                    habit = {habit}
-                                    color={'bg-background-lightGreen'}
-                                    handleComplete={handleComplete}
-                                    isCompleted = {isHabitCompleted(habit)}
-                                    handleUpdate={handleUpdate}
-                                />
-                            ))}
-                        </ul>
+                <div className="p-6 rounded-lg bg-white shadow-lg">
+                    <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-xl font-semibold border-b-2 border-gray-300 pb-2">Daily Habits</h3>
+                        <div className="w-12 h-12">
+                            <CircularProgressbar
+                                value={calculateProgress(habits.daily)}
+                                text={`${Math.round(calculateProgress(habits.daily))}%`}
+                                styles={buildStyles({
+                                    pathColor: `#c7f98e`,  
+                                    textColor: '#545454',  
+                                })}
+                            />
+                        </div>
                     </div>
-                </>
+                    <ul className="space-y-4">
+                        {habits.daily.map((habit) => (
+                            <HabitItem 
+                                key={habit._id}
+                                handleDelete={handleDelete}
+                                habit={habit}
+                                color="bg-background-lightGreen"
+                                handleComplete={handleComplete}
+                                isCompleted={isHabitCompleted(habit)}
+                                handleUpdate={handleUpdate}
+                            />
+                        ))}
+                    </ul>
+                </div>
             )}
 
+            {/* Weekly Habits Column */}
             {habits.weekly.length > 0 && (
-                <>
-                    <div className="mb-4">
-                        <h3 className="text-xl font-semibold mb-3">Weekly</h3>
-                        <ul className="space-y-4">
-                            {habits.weekly.map((habit) => (
-                                <HabitItem
-                                key={habit._id} 
-                                    handleDelete = {() => handleDelete(habit._id)}
-                                    habit={habit}
-                                    color={'bg-background-lightPink'}
-                                    handleComplete={handleComplete}
-                                    isCompleted = {isHabitCompleted(habit)}
-                                    handleUpdate={handleUpdate}
-                                />
-                            ))}
-                        </ul>
+                <div className="p-6 rounded-lg bg-white shadow-lg">
+                    <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-xl font-semibold border-b-2 border-gray-300 pb-2">Weekly Habits</h3>
+                        <div className="w-12 h-12">
+                            <CircularProgressbar
+                                value={calculateProgress(habits.weekly)}
+                                text={`${Math.round(calculateProgress(habits.weekly))}%`}
+                                styles={buildStyles({
+                                    pathColor: `#ffbaba`, 
+                                    textColor: '#545454', 
+                                })}
+                            />
+                        </div>
                     </div>
-                </>
+                    <ul className="space-y-4">
+                        {habits.weekly.map((habit) => (
+                            <HabitItem 
+                                key={habit._id}
+                                handleDelete={handleDelete}
+                                habit={habit}
+                                color="bg-background-lightPink"
+                                handleComplete={handleComplete}
+                                isCompleted={isHabitCompleted(habit)}
+                                handleUpdate={handleUpdate}
+                            />
+                        ))}
+                    </ul>
+                </div>
             )}
 
+            {/* Monthly Habits Column */}
             {habits.monthly.length > 0 && (
-                <>
-                    <div className="mb-4">
-                        <h3 className="text-xl font-semibold mb-3">Monthly</h3>
-                        <ul className="space-y-4">
-                            {habits.monthly.map((habit) => (
-                                <HabitItem 
-                                    key={habit._id}
-                                    handleDelete = {() => handleDelete(habit._id)}
-                                    habit={habit}
-                                    color={'bg-background-babyBlue'}
-                                    handleComplete={handleComplete}
-                                    isCompleted = {isHabitCompleted(habit)}
-                                    handleUpdate={handleUpdate}
-                                />
-                            ))} 
-                        </ul>
+                <div className="p-6 rounded-lg bg-white shadow-lg">
+                    <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-xl font-semibold border-b-2 border-gray-300 pb-2">Monthly Habits</h3>
+                        <div className="w-12 h-12">
+                            <CircularProgressbar
+                                value={calculateProgress(habits.monthly)}
+                                text={`${Math.round(calculateProgress(habits.monthly))}%`}
+                                styles={buildStyles({
+                                    pathColor: `#bffeff`,
+                                    textColor: '#545454',
+                                })}
+                            />
+                        </div>
                     </div>
-                </>
+                    <ul className="space-y-4">
+                        {habits.monthly.map((habit) => (
+                            <HabitItem 
+                                key={habit._id}
+                                handleDelete={handleDelete}
+                                habit={habit}
+                                color="bg-background-babyBlue"
+                                handleComplete={handleComplete}
+                                isCompleted={isHabitCompleted(habit)}
+                                handleUpdate={handleUpdate}
+                            />
+                        ))}
+                    </ul>
+                </div>
             )}
 
+            {/* No Habits Found */}
             {habits.daily.length === 0 && habits.weekly.length === 0 && habits.monthly.length === 0 && (
-                <div className="mt-8">
+                <div className="col-span-3 mt-8">
                     <p className="text-gray-500 text-center">No habits found.</p>
                 </div>
             )}
-        </section>
+        </div>
     );
 };
 

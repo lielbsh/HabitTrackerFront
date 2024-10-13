@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createHabit } from '../api/habitScript';
 import { useUserData } from '../context/userContext';
 import SubmitButton from './SubmitButton';
-import { filterHabitsByFrequency } from '../utils/habitHelpers';
+// import { filterHabitsByFrequency } from '../utils/habitHelpers';
 
 const AddHabitForm = () => {
   const { user, setUser } = useUserData();
@@ -84,10 +84,10 @@ const AddHabitForm = () => {
   };
 
   return (
-    <div className="flex justify-center mt-8 px-4">
+    <div className="flex justify-center items-center px-1">
       <form
         onSubmit={handleSubmit}
-        className="bg-background-lightPurple p-6 rounded-lg shadow-xl border-2 border-purple-300 relative w-full max-w-md"
+        className="bg-background-lightPurple p-6 rounded-lg shadow-xl border-2 border-purple-300 relative w-full max-w-md h-fit"
       >
         <h2 className="text-2xl font-semibold text-white mb-6 text-center">
           Add a New Habit
