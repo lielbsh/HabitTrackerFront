@@ -23,31 +23,47 @@ export const filterHabitsByFrequency = (habits) => {
 
 // Updates the habit's completion dates and checks if the habit streak should be continued or reset.
 export const updateHabitCompletion = (prevHabits, habitToUpdate) => {
-    // Get today's date
     const today = new Date();
-
-    // Determine which frequency category the habit belongs to
     const frequencyKey = habitToUpdate.frequency.toLowerCase();
 
-    // Function to calculate the difference in days between two dates
-    const getDaysDifference = (date1, date2) => {
-        const diffTime = Math.abs(date2 - date1);
-        return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    // Helper function to check if two dates are on the same day
+    const isSameDay = (date1, date2) => {
+        return (
+            date1.getDate() === date2.getDate() &&
+            date1.getMonth() === date2.getMonth() &&
+            date1.getFullYear() === date2.getFullYear()
+        );
     };
+
+    // Helper function to check if two dates are in the same week
+    const isSameWeek = (date1, date2) => {
+        const oneDay = 24 * 60 * 60 * 1000;
+        const dayOfWeek = (date) => (date.getDay() === 0 ? 7 : date.getDay()); // Adjust for Sunday being 0
+        const startOfWeek1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate() - dayOfWeek(date1) + 1);
+        const startOfWeek2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate() - dayOfWeek(date2) + 1);
+
+        return Math.abs(startOfWeek1 - startOfWeek2) < oneDay;
+    };
+
+    // Helper function to check if two dates are in the same month
+    const isSameMonth = (date1, date2) => {
+        return date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
+    };
+
 
     // Function to check if the streak should be increased
     const isStreakContinued = (lastCompletionDate) => {
         if (!lastCompletionDate) return false; // No previous completion, no streak
 
-        const daysDiff = getDaysDifference(new Date(lastCompletionDate), today);
+        const lastDate = new Date(lastCompletionDate);
 
-        // Define streak conditions based on frequency
-        if (frequencyKey === 'daily' && daysDiff === 1) {
-            return true;
-        } else if (frequencyKey === 'weekly' && daysDiff <= 7) {
-            return true;
-        } else if (frequencyKey === 'monthly' && daysDiff <= 30) {
-            return true;
+         // Define streak conditions based on frequency
+        if (frequencyKey === 'daily') {
+            return isSameDay(lastDate, today);
+        } else if (frequencyKey === 'weekly') {
+            return isSameWeek(lastDate, today);
+        } else if (frequencyKey === 'monthly') {
+            return isSameMonth(lastDate, today);
         }
         return false;
     };
