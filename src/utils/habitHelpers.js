@@ -22,7 +22,7 @@ export const filterHabitsByFrequency = (habits) => {
 
 
 // Updates the habit's completion dates and checks if the habit streak should be continued or reset.
-export const updateHabitCompletion = (prevHabits, habitToUpdate) => {
+export const updateHabitCompletion = (prevHabits, habitToUpdate, setUser) => {
     const today = new Date();
     const frequencyKey = habitToUpdate.frequency.toLowerCase();
 
@@ -91,6 +91,14 @@ export const updateHabitCompletion = (prevHabits, habitToUpdate) => {
     
     // Send request to the server to update the habit in the cloud
     updateHabit(completedHabit);
+
+    // Updates the user in local storage
+    setUser((prevUser) => ({
+        ...prevUser,
+        habits: prevUser.habits.map(habit =>
+          habit._id === habitToUpdate._id ? completedHabit : habit 
+        )
+    }));
 
     // Return the new state with the updated habit
     return {

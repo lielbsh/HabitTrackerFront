@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useUserData } from '../context/userContext'; 
-import HabitItem from './HabitItem'; // Import your HabitItem component
+import HabitItem from './HabitItem'; 
 import { deleteHabit, updateHabit } from '../api/habitScript';
 import  { filterHabitsByFrequency, isHabitCompleted, sortHabitsByCompletion, updateHabitCompletion } from '../utils/habitHelpers'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -58,9 +58,8 @@ const HabitList = () => {
     const handleComplete = async (habitToCheck) => {
     try {
         // Update the habit and check for streaks
-        setHabits((prevHabits) => updateHabitCompletion(prevHabits, habitToCheck)); // this sends the req to the server
+        setHabits((prevHabits) => updateHabitCompletion(prevHabits, habitToCheck, setUser)); // this sends the req to the server and saves to local storage 
         console.log('Habit completion and streak updated');
-
 
     } catch (error) {
         console.error('Error:', error);
