@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { useUserData } from '../context/userContext'; 
+import { useUserData } from '../../context/userContext'; 
 import HabitItem from './HabitItem'; 
-import { deleteHabit, updateHabit } from '../api/habitScript';
-import  { filterHabitsByFrequency, isHabitCompleted, sortHabitsByCompletion, updateHabitCompletion } from '../utils/habitHelpers'
+import { deleteHabit, updateHabit } from '../../api/habitScript';
+import  { filterHabitsByFrequency, isHabitCompleted, sortHabitsByCompletion, updateHabitCompletion } from '../../utils/habitHelpers'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
@@ -14,6 +14,7 @@ const HabitList = () => {
         weekly: [],
         monthly: [],
     });
+    const today = new Date();
 
    // Use effect to filter habits based on user's habits
     useEffect(() => {
@@ -21,7 +22,7 @@ const HabitList = () => {
             setHabits(filterHabitsByFrequency(user.habits)); // Sort habits by frequency
             sortHabitsByCompletion(setHabits); // Moves completed habits to the end
         }
-        }, [user, setHabits]); // Dependency array includes user and setHabits
+        }, [user, setUser ,setHabits]); // Dependency array includes user and setHabits
         console.log('habits:',habits)
 
     // Check if user or habits data is available
@@ -33,8 +34,9 @@ const HabitList = () => {
         );
     }
 
+    // Function to calculate progress 
     const calculateProgress = (habitList) => {
-        const completed = habitList.filter(isHabitCompleted).length;
+        const completed = habitList.filter((habit) => isHabitCompleted(habit, today)).length;
         const total = habitList.length;
         return total === 0 ? 0 : (completed / total) * 100;
     };
@@ -57,8 +59,21 @@ const HabitList = () => {
     // Function to handle completing a habit
     const handleComplete = async (habitToCheck) => {
     try {
-        // Update the habit and check for streaks
-        setHabits((prevHabits) => updateHabitCompletion(prevHabits, habitToCheck, setUser)); // this sends the req to the server and saves to local storage 
+        // Updated habit
+        let updated = updateHabitCompletion(habitToCheck)
+        console.log(updated)
+
+        // Updates the user in the local storage
+        setUser((prevUser) => ({
+            ...prevUser,
+            habits: prevUser.habits.map(habit =>
+            habit._id === habitToCheck._id ? updated : habit 
+            )
+        }));
+        console.log('user updeted with the completed habit');
+
+        // sends req to the server
+        updateHabit(updated); 
         console.log('Habit completion and streak updated');
 
     } catch (error) {
@@ -91,7 +106,7 @@ const HabitList = () => {
 
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 container mx-auto px-12 py-8">
             {/* Daily Habits Column */}
             {habits.daily.length > 0 && (
                 <div className="p-6 rounded-lg bg-white shadow-lg">
@@ -116,7 +131,7 @@ const HabitList = () => {
                                 habit={habit}
                                 color="bg-background-lightGreen"
                                 handleComplete={handleComplete}
-                                isCompleted={isHabitCompleted(habit)}
+                                isCompleted={isHabitCompleted(habit, today)}
                                 handleUpdate={handleUpdate}
                             />
                         ))}
@@ -148,7 +163,7 @@ const HabitList = () => {
                                 habit={habit}
                                 color="bg-background-lightPink"
                                 handleComplete={handleComplete}
-                                isCompleted={isHabitCompleted(habit)}
+                                isCompleted={isHabitCompleted(habit, today)}
                                 handleUpdate={handleUpdate}
                             />
                         ))}
@@ -166,7 +181,7 @@ const HabitList = () => {
                                 value={calculateProgress(habits.monthly)}
                                 text={`${Math.round(calculateProgress(habits.monthly))}%`}
                                 styles={buildStyles({
-                                    pathColor: `#bffeff`,
+                                    pathColor: `#98fbfd`,
                                     textColor: '#545454',
                                 })}
                             />
@@ -180,7 +195,7 @@ const HabitList = () => {
                                 habit={habit}
                                 color="bg-background-babyBlue"
                                 handleComplete={handleComplete}
-                                isCompleted={isHabitCompleted(habit)}
+                                isCompleted={isHabitCompleted(habit, today)}
                                 handleUpdate={handleUpdate}
                             />
                         ))}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { createHabit } from '../api/habitScript';
-import { useUserData } from '../context/userContext';
-import SubmitButton from './SubmitButton';
+import { createHabit } from '../../api/habitScript';
+import { useUserData } from '../../context/userContext';
+import SubmitButton from '../SubmitButton';
 
 const AddHabitForm = () => {
   const { user, setUser } = useUserData();

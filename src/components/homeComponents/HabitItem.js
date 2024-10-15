@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import SubmitButton from './SubmitButton';
+import SubmitButton from '../SubmitButton';
 
 
 const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, handleUpdate }) => {
@@ -38,7 +38,7 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
                 className={`relative rounded-lg shadow-md p-4 flex justify-between items-center transition-transform transform-gpu duration-200 hover:ring-4 hover:ring-opacity-75 hover:ring-offset-2 hover:ring-background-lightPurple ${isCompleted ? `${color} brightness-80 opacity-35` : color}`}
 
                 key={habit._id}
-                onClick={() => { setIsEditing(false); setIsExpanded(!isExpanded); console.log(isEditing, isExpanded)}} // Toggle accordion on click
+                onClick={() => { setIsEditing(false); setIsExpanded(!isExpanded);}} // Toggle accordion on click
             >
                 {/* Habit Title */}
                 <div className="flex-1 cursor-pointer">
@@ -109,7 +109,7 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
                     ) : (
                         <>
                             <p className="text-grayCustom text-lg">{habit.description}</p>
-                            <p className="text-gray-400 mt-2">Frequency: {habit.frequency}</p>
+                            <p className="text-gray-400 mt-2">Streaks: {habit.streak} </p>
 
                             <div className="flex space-x-2 mt-2"> {/* Use space-x-2 for a small gap */}
                                 {/* Edit Button */}

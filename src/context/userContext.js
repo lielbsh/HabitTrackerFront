@@ -3,8 +3,8 @@ import { createContext, useState, useContext, useEffect } from 'react';
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState(() => getFromLocalStorage('userData') || null); // Store user data globally
-
+    const [user, setUser] = useState(() => getFromLocalStorage('userData') || null ); // Store user data globally
+    
     useEffect(() => {
         // Save data to Local Storage whenever it changes
         saveToLocalStorage('userData', user);

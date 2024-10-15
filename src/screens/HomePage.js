@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-import HabitList from '../components/HabitList';
-import AddHabitForm from '../components/AddHabitForm';
+import HabitList from '../components/homeComponents/HabitList';
+import AddHabitForm from '../components/homeComponents/AddHabitForm';
 
 const HomePage = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
