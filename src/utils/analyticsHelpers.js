@@ -38,12 +38,12 @@ export const prepareChartData = (habits) => {
         });
 
         chartData.push({
-            date: date,
+            date: format(date, 'dd/MM/yy', { timeZone: 'Asia/Jerusalem' }),
             Daily: dailyCount,
             Weekly: weeklyCount,
             Monthly: monthlyCount
         });
-    });
+    }); 
 
     return chartData;
 };
@@ -61,6 +61,13 @@ const checkCompletionHistory = (habit, formattedDate) => {
 export const formatToLocal = (date) => {
     const localDate = toZonedTime(date, 'Asia/Jerusalem')
     return  format(localDate, 'yyyy-MM-dd', { timeZone: 'Asia/Jerusalem' })
+}
+
+
+// Best streaks calculator
+export const bestStreaks = (habits) => {
+
+
 }
 
 

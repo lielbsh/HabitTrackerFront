@@ -205,10 +205,20 @@ const HabitList = () => {
 
             {/* No Habits Found */}
             {habits.daily.length === 0 && habits.weekly.length === 0 && habits.monthly.length === 0 && (
-                <div className="col-span-3 mt-8">
-                    <p className="text-gray-500 text-center">No habits found.</p>
+            <div className="col-span-3 mt-8 flex flex-col items-center justify-center">
+                
+                <div className="mb-4">
+                <svg className="w-16 h-16 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m2 4h.01M9 16h.01M9 8h6m-7 12h8a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
                 </div>
+
+                {/* Message */}
+                <p className="text-gray-500 text-lg font-semibold text-center mb-2">Your habit list is empty</p>
+                <p className="text-gray-500 text-center mb-4">Start creating new habits!</p>
+            </div>
             )}
+
         </div>
     );
 };

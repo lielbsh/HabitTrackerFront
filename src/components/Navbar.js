@@ -15,11 +15,11 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-greenPrimary p-4 shadow-md">
+    <nav className="bg-background-lightPurple p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
-        {/* Logo or Brand Name */}
+        {/* Habit Tracker */}
         <Link to="/home" className="flex items-center">
-          <span className="text-2xl font-bold text-pink">Habit Tracker</span>
+          <span className="text-2xl font-bold text-white  hover:text-pink">Habit Tracker</span>
         </Link>
 
         {/* Mobile Menu Button */}
@@ -43,7 +43,7 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <ul
-          className={`md:flex md:items-center md:space-x-6 absolute md:static top-16 left-0 w-full md:w-auto bg-greenPrimary md:bg-transparent transition-all duration-300 ease-in ${
+          className={`md:flex md:items-center md:space-x-6 absolute md:static top-16 left-0 w-full md:w-auto bg-inherit md:bg-transparent transition-all duration-300 ease-in ${
             isOpen ? 'block' : 'hidden'
           }`}
         >
@@ -53,8 +53,8 @@ const Navbar = () => {
                 to={link.path}
                 className={`block px-4 py-2 text-lg font-medium rounded ${
                   location.pathname === link.path
-                    ? 'text-pink bg-background-lightpink'
-                    : 'text-grayCustom hover:text-pink hover:bg-background-lightpink'
+                    ? 'text-pink'
+                    : 'text-white hover:text-pink'
                 } transition-colors duration-300`}
                 onClick={() => setIsOpen(false)} // Close menu on link click
               >

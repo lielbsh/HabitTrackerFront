@@ -9,7 +9,7 @@ const AddHabitForm = () => {
     name: '',
     description: '',
     frequency: 'Daily',
-    startDate: new Date(), 
+    // startDate: new Date(), 
   });
   // const [recommendedStartDate, setRecommendedStartDate] = useState(today);
   const [errors, setErrors] = useState({ name: '' });
@@ -105,10 +105,10 @@ const AddHabitForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center px-1">
+    <div className="flex justify-center items-center px-1 h-screen bg-transparent">
       <form
         onSubmit={handleSubmit}
-        className="bg-background-lightPurple p-6 rounded-lg shadow-xl border-2 border-purple-300 relative w-full max-w-md h-fit"
+        className="bg-background-lightPurple p-6 rounded-lg shadow-xl border-2 border-purple-300 relative w-full max-w-md"
       >
         <h2 className="text-2xl font-semibold text-white mb-6 text-center">Add a New Habit</h2>
 
@@ -164,7 +164,7 @@ const AddHabitForm = () => {
           </select>
         </label>
 
-        <label htmlFor="start-date" className="block mb-6">
+        {/* <label htmlFor="start-date" className="block mb-6">
           <span className="text-grayCustom">Start Date</span>
           <input
             type="date"
@@ -172,7 +172,7 @@ const AddHabitForm = () => {
             name="start-date"
             className="mt-1 block w-full p-3 rounded-lg bg-background-offwhite border-2 border-gray-300 focus:border-pink focus:outline-none focus:ring focus:ring-pink focus:ring-opacity-50"
           />
-        </label>
+        </label> */}
 
 
         <SubmitButton isSubmitting={isSubmitting} text="Add Habit" />

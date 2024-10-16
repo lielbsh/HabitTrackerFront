@@ -109,9 +109,9 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
                     ) : (
                         <>
                             <p className="text-grayCustom text-lg">{habit.description}</p>
-                            <p className="text-gray-400 mt-2">Streaks: {habit.streak} </p>
+                            <p className="text-mustard text-lg font-medium mt-2">Streak: {habit.streak} </p>
 
-                            <div className="flex space-x-2 mt-2"> {/* Use space-x-2 for a small gap */}
+                            <div className="flex space-x-2 mt-2 justify-end"> 
                                 {/* Edit Button */}
                                 <button 
                                     onClick={() => setIsEditing(true)} 
