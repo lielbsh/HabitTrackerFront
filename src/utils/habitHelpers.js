@@ -143,7 +143,10 @@ export const updateHabitCompletion = (habitToUpdate) => {
         ...habitToUpdate,
         completedDates: [...habitToUpdate.completedDates, today],
         streak: streakContinued ? habitToUpdate.streak + 1 : 1, // Reset to 1 if streak is broken
-    }
+        bestStreak: (streakContinued && (habitToUpdate.streak + 1 > habitToUpdate.bestStreak)) 
+        ? habitToUpdate.streak + 1 
+        : habitToUpdate.bestStreak,
+};
 };
 
 

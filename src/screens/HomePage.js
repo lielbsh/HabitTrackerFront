@@ -12,17 +12,17 @@ const HomePage = () => {
   };
 
   return (
-    <div className="flex-1 min-h-screen bg-slate-100 text-purple-900 font-sans relative">
+    <div className="flex flex-col h-screen bg-slate-100 font-sans relative overflow-auto">
       <Navbar />
 
-    <div className="h-screen">
-      <HabitList/>
-    </div>
-    
+      <div className="flex-grow">
+        <HabitList />
+      </div>
+
       {/* Floating Button to open the form */}
       <button
         onClick={() => setIsFormVisible(!isFormVisible)}
-        className="fixed right-4 bottom-10 bg-purple-400 text-white p-4 rounded-full shadow-lg hover:bg-pink hover:scale-105"
+        className="fixed right-4 bottom-24 bg-purple-400 text-white p-4 rounded-full shadow-lg hover:bg-pink hover:scale-105 z-30"
       >
         New Habit
       </button>
@@ -37,7 +37,7 @@ const HomePage = () => {
 
       {/* Sliding Side Panel Form */}
       <div
-        className={`fixed right-0 top-0 h-fit w-1/3 p-6 shadow-lg z-20 transform ${
+        className={`fixed right-0 top-0 w-1/3 p-6 shadow-lg z-20 transform ${
           isFormVisible ? "translate-x-0" : "translate-x-full"
         } transition-transform duration-300 ease-in-out`}
       >
@@ -45,7 +45,7 @@ const HomePage = () => {
       </div>
 
       {/* Footer */}
-      <Footer/>
+      <Footer className="mt-auto" /> 
     </div>
   );
 };

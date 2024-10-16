@@ -64,11 +64,73 @@ export const formatToLocal = (date) => {
 }
 
 
-// Best streaks calculator
-export const bestStreaks = (habits) => {
-
-
+// Best Current streaks calculator
+export const bestStreaks = (habitsList) => {
+    let bestDailyStreak = {streak: 0}
+    let bestWeeklyStreak = {streak: 0}
+    let bestMonthlyStreak = {streak: 0}
+  
+    habitsList.daily.forEach(habit => {
+      if (habit.streak > bestDailyStreak.streak) {
+        bestDailyStreak = habit;
+      }
+    });
+  
+    habitsList.weekly.forEach(habit => {
+      if (habit.streak > bestWeeklyStreak.streak) {
+        bestWeeklyStreak = habit;
+      }
+    });
+  
+    habitsList.monthly.forEach(habit => {
+      if (habit.streak > bestMonthlyStreak.streak) {
+        bestMonthlyStreak = habit;
+      }
+    });
+  
+    const bestStreaks = {
+        'bestDailyStreak': bestDailyStreak,
+        'bestWeeklyStreak': bestWeeklyStreak,
+        'bestMonthlyStreak': bestMonthlyStreak
+    };
+    console.log(bestStreaks)
+    return bestStreaks
 }
+
+// Best records streaks
+export const bestOfAllTimes = (habitsList) => {
+    let dailyStreakRecord = { bestStreak: 0 };
+    let weeklyStreakRecord = { bestStreak: 0 };
+    let monthlyStreakRecord = { bestStreak: 0 };
+
+    habitsList.daily.forEach(habit => {
+        if (habit.bestStreak > dailyStreakRecord.bestStreak) {
+            dailyStreakRecord = habit;
+        }
+    });
+
+    habitsList.weekly.forEach(habit => {
+        if (habit.bestStreak > weeklyStreakRecord.bestStreak) {
+            weeklyStreakRecord = habit;
+        }
+    });
+
+    habitsList.monthly.forEach(habit => {
+    if (habit.bestStreak > monthlyStreakRecord.bestStreak) {
+        monthlyStreakRecord = habit;
+        }
+    })
+
+    const streaksRecords = {
+        'dailyStreakRecord': dailyStreakRecord,
+        'weeklyStreakRecord': weeklyStreakRecord,
+        'monthlyStreakRecord': monthlyStreakRecord,
+    };
+    console.log(streaksRecords)
+
+    return streaksRecords;
+};
+
 
 
 

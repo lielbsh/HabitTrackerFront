@@ -7,12 +7,12 @@ import Footer from '../components/Footer';
 const Analytics = () => {
 
   return (
-    <div className="flex-1 min-h-screen bg-slate-100 font-sans relative">
+    <div className="flex flex-col h-screen bg-slate-100 font-sans relative overflow-auto">
       <Navbar />
       <HabitsChart />
       <BestStreaks/>
 
-      <Footer/>
+      <Footer className="mt-auto"/>
     </div>
     
   );
