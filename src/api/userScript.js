@@ -8,12 +8,8 @@ export const register = async (newUserData, setUser) => {
         const res = await axios.post(`${apiEndpoint}/register`, newUserData, { withCredentials: true });
 
         if (res.data.message === 'User registered successfully') {
-            console.log('yayy');
-            // const userId = res.data.userId;
-
             // Get the user info (await the promise)
             const userInfo = await getUserInfo();
-            console.log('Retrieved userInfo:', userInfo);
 
             setUser(userInfo); // Update global user state
             return userInfo; // Return the user info
@@ -36,12 +32,10 @@ export const logIn = async (userData, setUser) => { // input: {userName: '', pas
 
             // Get the user info (await the promise)
             const userInfo = await getUserInfo();
-            console.log('Retrieved userInfo:', userInfo);
 
             setUser(userInfo); // Update global user state
             return userInfo; // Return the user info
         } else {
-            // console.log(res.data.message);
             return res.data.message;
         }
     } catch (error) {
@@ -59,6 +53,21 @@ export const getUserInfo = async () => {
     } catch (error) {
         console.error('Error fetching user info:', error);
         throw error; // Rethrow error to be handled in logIn or register
+    }
+};
+
+export const logout = async (setUser) => {
+    try {
+        const res = await axios.get(`${apiEndpoint}/logout`, {
+            withCredentials: true,
+        });
+        if (res.status === 200) {
+            console.log(res.data.message); // Log success message
+            setUser(null); // Clear user state
+        }
+    } catch (error) {
+        console.error('Error logging out:', error);
+        throw error; 
     }
 };
 

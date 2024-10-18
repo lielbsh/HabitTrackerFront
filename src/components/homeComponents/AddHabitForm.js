@@ -9,40 +9,11 @@ const AddHabitForm = () => {
     name: '',
     description: '',
     frequency: 'Daily',
-    // startDate: new Date(), 
   });
-  // const [recommendedStartDate, setRecommendedStartDate] = useState(today);
+
   const [errors, setErrors] = useState({ name: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState({ type: '', message: '' });
-
-  // const formatDate = (date) => {
-  //   const year = date.getFullYear();
-  //   const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-  //   const day = String(date.getDate()).padStart(2, '0');
-  //   return `${year}-${month}-${day}`;
-  // };
-  
-
-  // Function to calculate recommended dates based on frequency
-  // const getRecommendedStartDate = (frequency) => {
-  //   switch (frequency) {
-  //     case 'Daily':
-  //       const tomorrow = new Date();
-  //       tomorrow.setDate(today.getDate() + 1);
-  //       return tomorrow;
-  //     case 'Weekly':
-  //       const startOfNextWeek = new Date(today);
-  //       startOfNextWeek.setDate(today.getDate() + (7 - today.getDay()));
-  //       return startOfNextWeek;
-  //     case 'Monthly':
-  //       const startOfNextMonth = new Date(today);
-  //       startOfNextMonth.setMonth(today.getMonth() + 1, 1);
-  //       return startOfNextMonth;
-  //     default:
-  //       return today;
-  //   }
-  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -55,7 +26,6 @@ const AddHabitForm = () => {
       return;
     }
 
-    console.log(formData);
     const habitData = { ...formData, userId: user._id };
 
     setIsSubmitting(true);
@@ -75,7 +45,9 @@ const AddHabitForm = () => {
       }
     } catch (error) {
       const errorMsg = error.message || 'Error adding habit.';
+
       setFeedback({ type: 'error', message: errorMsg });
+
       console.error('Error adding habit:', error);
     } finally {
       setIsSubmitting(false);

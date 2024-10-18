@@ -4,29 +4,32 @@ const api = 'http://localhost:8000/habits'
 
 
 // Create a new habit
-export const createHabit = async (newHabit) => {  // the userId is inside the newHabit
-    return await axios.post(`${api}/create`, newHabit)
-        .then(res => {
-            console.log('res.data',res.data)
-            return res.data.habit
-        })
+export const createHabit = async (newHabit) => {
+    try {
+        const res = await axios.post(`${api}/create`, newHabit, {
+            withCredentials: true, // Include cookies in the request
+        });
 
-        .catch (error => {
-            console.error('Error creating habit:', error)
-            return null;
-        })       
-}
+        return res.data.habit; // Return the newly created habit
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            // Redirect to sign-in page if unauthorized
+            window.location.href = '/';
+        }
+        console.error('Error creating habit:', error);
+        return null;
+    }
+};
+
    
 // Delete a habit
 export const deleteHabit = async (habitId, userId) => {  
    // Send the delete request to the server
-   axios.delete(`${api}/${habitId}`, {
-    headers: {
-        'user-id': userId
-    }
+   axios.delete(`${api}/${habitId}`,{
+    withCredentials: true, // Include cookies in the request
     })
     .then(res => {
-        console.log('Habit deleted successfully');
+        console.log(res.data.message);
         return(res.data.message)
     })
     .catch(error => {
@@ -36,9 +39,11 @@ export const deleteHabit = async (habitId, userId) => {
 
 // Function for updating habit sends the updated habit to the backend
 export const updateHabit = async (updatedHabit) => {  
-    axios.post(`${api}/update`, {updatedHabit})
+    axios.post(`${api}/update`, {updatedHabit}, {
+        withCredentials: true, // Include cookies in the request
+        })
     .then(
-        console.log('Habit updated!!', updatedHabit)
+        console.log('Habit updated!')
     )
     .catch(error => {
         console.error('Error updating habit:', error);

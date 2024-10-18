@@ -40,7 +40,6 @@ const Signup = () => {
     };  
 
     try {
-      console.log('Trying to register:', formData); // Log the form data
       await setUser(register(formData, setUser));
       navigate('/home');
    

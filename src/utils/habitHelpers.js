@@ -20,13 +20,12 @@ export const filterHabitsByFrequency = (habits) => {
 };
 
 
-////////////////// Functions for streaks  /////////////////////
+// Functions for streaks //
 // Function to check if two dates are consecutive days
 const areConsecutiveDays = (date1, date2) => {
     // Parse the dates into Date objects
     const d1 = new Date(date1);
     const d2 = new Date(date2);
-    console.log(d1,d2)
     d1.setHours(0,0,0,0);
     d2.setHours(0,0,0,0);
 
@@ -37,11 +36,10 @@ const areConsecutiveDays = (date1, date2) => {
     console.log('difference in days',dayDiff)
 
     // Check if the dates are 1 day apart and on different calendar days
-    console.log(d1.getDate(), d2.getDate())
+    // console.log(d1.getDate(), d2.getDate())
     return dayDiff <= 1 && d1.getDate() !== d2.getDate();
   };
  
-
 // Function to check if two dates are consecutive weeks
 const areConsecutiveWeeks = (_date1, _date2) => {
     const date1 = new Date(_date1);
@@ -81,7 +79,6 @@ const areConsecutiveWeeks = (_date1, _date2) => {
     return false;
   };
   
-
 // Function to check if two dates are consecutive months
 const areConsecutiveMonths = (_date1, _date2) => {
 const date1 = new Date(_date1);
@@ -98,15 +95,11 @@ if (year1 === year2 && Math.abs(month1 - month2) === 1) {
 return false;
 };
 
-/////////////////////////////////////// 
 
 // Updates the habit's completion dates and checks if the habit streak should be continued or reset.
 export const updateHabitCompletion = (habitToUpdate) => {
     const today = new Date(); // Completion day
-    console.log('today',today);
-    console.log(habitToUpdate)
     const frequencyKey = habitToUpdate.frequency.toLowerCase();
-
 
     // Function to check if the streak should be increased
     const isStreakContinued = (lastCompletionDate) => {
@@ -117,25 +110,20 @@ export const updateHabitCompletion = (habitToUpdate) => {
         }; 
 
         const lastDate = new Date(lastCompletionDate);
-        console.log('lastDate',lastDate)
 
          // Define streak conditions based on frequency
         if (frequencyKey === 'daily') {
-            console.log('daily', 'isSameDay?',areConsecutiveDays(lastDate, today))
             return areConsecutiveDays(lastDate, today);
         } else if (frequencyKey === 'weekly') {
             return areConsecutiveWeeks(lastDate, today);
         } else if (frequencyKey === 'monthly') {
             return areConsecutiveMonths(lastDate, today);
-        } else {
-            console.log('else')
-        }
+        } 
         return false;
     };
 
     // Update habit with new completion date and potentially increase streak
     const lastCompletionDate = habitToUpdate.completedDates[habitToUpdate.completedDates.length - 1];
-    console.log('lastCompletionDate', lastCompletionDate)
     const streakContinued = isStreakContinued(lastCompletionDate);
     console.log('streak Continued?', streakContinued)
 
@@ -150,13 +138,11 @@ export const updateHabitCompletion = (habitToUpdate) => {
 };
 
 
-
 // Function to check if a habit is completed for today
 export const isHabitCompleted = (habit, today) => {
     if (!habit.completedDates || habit.completedDates.length === 0) {
         return false;
     }
-
     const lastCompletedDate = new Date(habit.completedDates[habit.completedDates.length - 1]);
 
     if (habit.frequency === 'Daily') {
@@ -187,8 +173,6 @@ export const isHabitCompleted = (habit, today) => {
 
     return false;
 };
-
-
 
 
 // Function to sort the habits (called when habits change)

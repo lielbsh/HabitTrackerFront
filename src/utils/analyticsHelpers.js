@@ -18,7 +18,6 @@ export const prepareChartData = (habits) => {
         dateArray.push(formatToLocal(currentDate)); // Keep date as a Date object
         currentDate.setDate(currentDate.getDate() + 1);
     }
-    console.log('dateArray:',dateArray);
 
     // Loop through each date and count completed habits for Daily, Weekly, and Monthly
     dateArray.forEach((date) => {
@@ -93,7 +92,6 @@ export const bestStreaks = (habitsList) => {
         'bestWeeklyStreak': bestWeeklyStreak,
         'bestMonthlyStreak': bestMonthlyStreak
     };
-    console.log(bestStreaks)
     return bestStreaks
 }
 
@@ -126,7 +124,6 @@ export const bestOfAllTimes = (habitsList) => {
         'weeklyStreakRecord': weeklyStreakRecord,
         'monthlyStreakRecord': monthlyStreakRecord,
     };
-    console.log(streaksRecords)
 
     return streaksRecords;
 };

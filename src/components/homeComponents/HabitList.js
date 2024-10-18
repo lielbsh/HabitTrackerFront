@@ -23,7 +23,6 @@ const HabitList = () => {
             sortHabitsByCompletion(setHabits); // Moves completed habits to the end
         }
         }, [user, setUser ,setHabits]); // Dependency array includes user and setHabits
-        console.log('habits:',habits)
 
     // Check if user or habits data is available
     if (!user) {
@@ -62,7 +61,6 @@ const HabitList = () => {
     try {
         // Updated habit
         let updated = updateHabitCompletion(habitToCheck)
-        console.log(updated)
 
         // Updates the user in the local storage
         setUser((prevUser) => ({
@@ -103,8 +101,6 @@ const HabitList = () => {
             });
 
             // Sends req to the server
-            console.log(user.habits)
-            console.log(updatedHabit)
             updateHabit(updatedHabit);
 
         } catch (error) {

@@ -1,25 +1,33 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom'; // Assuming you're using react-router
+import { logout } from '../api/userScript';
+import { useUserData } from '../context/userContext'; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-
+  const { setUser } = useUserData();
   const toggleMenu = () => setIsOpen(!isOpen);
 
   // Define navigation links
   const navLinks = [
     { name: 'Home', path: '/home' },
     { name: 'Analytics', path: '/analytics' },
-    { name: 'Logout', path: '/' },
+    { name: 'Logout', path: '/' }, // Path is still necessary for the link, but handled in the click event
   ];
+
+  const handleLogout = async () => {
+    await logout(setUser); // Call the logout function
+    // Redirect to the login page
+    window.location.href = '/';
+  };
 
   return (
     <nav className="bg-background-lightPurple p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         {/* Habit Tracker */}
         <Link to="/home" className="flex items-center">
-          <span className="text-2xl font-bold text-white  hover:text-pink">Habit Tracker</span>
+          <span className="text-2xl font-bold text-white hover:text-pink">Habit Tracker</span>
         </Link>
 
         {/* Mobile Menu Button */}
@@ -49,17 +57,30 @@ const Navbar = () => {
         >
           {navLinks.map((link) => (
             <li key={link.name} className="mt-4 md:mt-0">
-              <Link
-                to={link.path}
-                className={`block px-4 py-2 text-lg font-medium rounded ${
-                  location.pathname === link.path
-                    ? 'text-pink'
-                    : 'text-white hover:text-pink'
-                } transition-colors duration-300`}
-                onClick={() => setIsOpen(false)} // Close menu on link click
-              >
-                {link.name}
-              </Link>
+              {link.name === 'Logout' ? (
+                <button
+                  className={`block px-4 py-2 text-lg font-medium rounded ${
+                    location.pathname === link.path
+                      ? 'text-pink'
+                      : 'text-white hover:text-pink'
+                  } transition-colors duration-300`}
+                  onClick={handleLogout} // Trigger logout on click
+                >
+                  {link.name}
+                </button>
+              ) : (
+                <Link
+                  to={link.path}
+                  className={`block px-4 py-2 text-lg font-medium rounded ${
+                    location.pathname === link.path
+                      ? 'text-pink'
+                      : 'text-white hover:text-pink'
+                  } transition-colors duration-300`}
+                  onClick={() => setIsOpen(false)} // Close menu on link click
+                >
+                  {link.name}
+                </Link>
+              )}
             </li>
           ))}
         </ul>
