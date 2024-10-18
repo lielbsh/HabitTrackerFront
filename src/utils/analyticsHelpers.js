@@ -38,7 +38,7 @@ export const prepareChartData = (habits) => {
         });
 
         chartData.push({
-            date: format(date, 'dd/MM/yy', { timeZone: 'Asia/Jerusalem' }),
+            date: format(date, 'dd-MM-yy', { timeZone: 'Asia/Jerusalem' }),
             Daily: dailyCount,
             Weekly: weeklyCount,
             Monthly: monthlyCount

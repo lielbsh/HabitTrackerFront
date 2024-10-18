@@ -6,7 +6,6 @@ import  { filterHabitsByFrequency, isHabitCompleted, sortHabitsByCompletion, upd
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-
 const HabitList = () => {
     const { user, setUser } = useUserData();
     const [habits, setHabits] = useState({
@@ -15,6 +14,7 @@ const HabitList = () => {
         monthly: [],
     });
     const today = new Date();
+    const [isStreak, setIsSreak] = useState(false)
 
    // Use effect to filter habits based on user's habits
     useEffect(() => {
@@ -58,6 +58,7 @@ const HabitList = () => {
 
     // Function to handle completing a habit
     const handleComplete = async (habitToCheck) => {
+        const prevStreak = habitToCheck.streak
     try {
         // Updated habit
         let updated = updateHabitCompletion(habitToCheck)
@@ -75,6 +76,13 @@ const HabitList = () => {
         // sends req to the server
         updateHabit(updated); 
         console.log('Habit completion and streak updated');
+
+        if (updated.streak > prevStreak && updated.streak && updated.streak > 2 ) {
+            setIsSreak(true)
+            setTimeout(() => {
+                setIsSreak(false); 
+            }, 1800);    
+        }
 
     } catch (error) {
         console.error('Error:', error);
@@ -123,7 +131,14 @@ const HabitList = () => {
                             />
                         </div>
                     </div>
+
                     <ul className="space-y-4">
+                        {isStreak && (
+                            <div className="flex flex-row fixed top-10 left-1/2 transform -translate-x-1/2 bg-white bg-opacity-90 text-mustard text-xl font-semibold py-2 px-4 rounded-full shadow-md transition-opacity duration-700 ease-out z-50 items-center">
+                               it's a sreak! 
+                               <img src="/icons/fire.gif" className="w-5 h-5 mix-blend-multiply" alt="Completed" />
+                            </div>
+                        )}
                         {habits.daily.map((habit) => (
                             <HabitItem 
                                 key={habit._id}

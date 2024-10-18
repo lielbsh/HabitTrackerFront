@@ -28,7 +28,7 @@ const Login = () => {
 
     try {
       const loggedInUser = await logIn(formData, setUser);
-      console.log('loggedInUser', loggedInUser)
+  
       if (loggedInUser) {
         navigate('/home');
       } else {
@@ -37,6 +37,7 @@ const Login = () => {
     } catch (error) {
       console.error('Error during login:', error);
       setErrorMessage('An unexpected error occurred. Please try again.');
+      setIsSubmitting(false);
     } finally {
       setIsSubmitting(false); // Reset submitting state regardless of the outcome
       setFormData({ username: '', password: '' }); // Reset form data

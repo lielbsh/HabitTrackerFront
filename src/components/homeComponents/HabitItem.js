@@ -11,11 +11,10 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
 
     const handleCompleteClick = (habit) => {
         handleComplete(habit);
-        setShowGif(true); // Show the GIF when the habit is marked complete
-
+        setShowGif(true); // Show the GIF 
         setTimeout(() => {
-            setShowGif(false); // Hide the GIF after 2 seconds
-        }, 1100); // Adjust this duration as needed
+            setShowGif(false); 
+        }, 1100); 
     };
 
     const handleEditChange = (e) => {
@@ -35,7 +34,7 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
     return (
         <>
             <li
-                className={`relative rounded-lg shadow-md p-4 flex justify-between items-center transition-transform transform-gpu duration-200 hover:ring-4 hover:ring-opacity-75 hover:ring-offset-2 hover:ring-background-lightPurple ${isCompleted ? `${color} brightness-80 opacity-35` : color}`}
+                className={`relative rounded-lg shadow-md p-4 flex justify-between items-center transition-transform transform-gpu duration-200 hover:ring-4 hover:ring-opacity-75 hover:ring-offset-2 hover:ring-background-lightPurple ${isCompleted ? `${color} opacity-40` : color}`}
 
                 key={habit._id}
                 onClick={() => { setIsEditing(false); setIsExpanded(!isExpanded);}} // Toggle accordion on click
@@ -49,7 +48,7 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
                 <button
                     onClick={(e) => { e.stopPropagation(); handleCompleteClick(habit); }}
                     className={`mr-2 rounded-full p-2 transition-colors duration-200 
-                        ${isCompleted ? 'bg-mustard text-dark' : 'bg-teal-50 hover:bg-pink text-gray-400'}`}
+                        ${isCompleted ? 'bg-mustard text-teal-50' : 'bg-teal-50 hover:bg-pink text-gray-400'}`}
                     aria-label="Mark as complete"
                     disabled={isCompleted}
                 >
@@ -58,7 +57,12 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
                     </svg>
                 </button>
             </li>
-
+            {/* Animated GIF */}
+            {showGif && (
+            <div className="fixed inset-0 flex items-center justify-center z-50">
+                <img src="..\..\icons\yellow-v.gif" className="w-15 h-15 object-cover" alt="Completed" />
+            </div>
+            )}
             {/* Expanded Section for Details and Editing */}
             {isExpanded && (
                 <div className="p-4 border-t border-gray-300 bg-gray-50">
@@ -131,13 +135,6 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
                             </div>
                         </>
                     )}
-                </div>
-            )}
-
-            {/* Animated GIF */}
-            {showGif && (
-                <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <img src="..\..\icons\yellow-v.gif" className="w-15 h-15 object-cover" alt="Completed" />
                 </div>
             )}
         </>

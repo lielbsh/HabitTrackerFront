@@ -30,6 +30,7 @@ const BestStreaks = () => {
       setBestAllTimeHabit(bestOfAllTimeData);
     }
   }, [user.habits]);
+  
 
   return (
     <div className="p-16">
@@ -79,6 +80,8 @@ const BestStreaks = () => {
             <p className="text-gray-500">No streak yet. Keep going!</p>
           )}
         </div>
+      </div>
+      <div className='border-gray-300 border-b-2 mt-10'>
       </div>
 
       {/* Best of All Time Section */}
