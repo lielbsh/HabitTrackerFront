@@ -23,11 +23,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-background-lightPurple p-4 shadow-md">
+    <nav className="bg-background-lightPurple p-4 shadow-md font-serif">
       <div className="container mx-auto flex justify-between items-center">
         {/* Habit Tracker */}
         <Link to="/home" className="flex items-center">
-          <span className="text-2xl font-bold text-white hover:text-pink">Habit Tracker</span>
+          <span className="text-3xl font-dosis font-bold text-white hover:text-pink">Habit Tracker</span>
         </Link>
 
         {/* Mobile Menu Button */}

@@ -45,7 +45,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-tr from-background-lightPink via-background-lightPurple to-purple-400 h-screen">
+    <div className="flex items-center justify-center min-h-screen font-sans bg-gradient-to-tr from-background-lightPink via-background-lightPurple to-purple-400 h-screen">
       <div className="p-8 bg-white rounded-lg shadow-lg max-w-md w-full space-y-8 ">
         <h2 className="text-3xl font-bold text-grayCustom text-center">Welcome Back!</h2>
         <form onSubmit={handleSubmit} className="space-y-4">

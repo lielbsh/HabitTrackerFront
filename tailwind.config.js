@@ -33,6 +33,8 @@ module.exports = {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         serif: ['Roboto', 'serif'],
+        dosis: ['Dosis', 'sans-serif'],
+        assistant: ['Assistant', 'sans-serif'],
       },
       boxShadow: {
         'custom-light': '0 4px 6px rgba(0, 0, 0, 0.1)',

@@ -22,7 +22,7 @@ const HomePage = () => {
       {/* Floating Button to open the form */}
       <button
         onClick={() => setIsFormVisible(!isFormVisible)}
-        className="fixed right-4 bottom-24 bg-purple-400 text-white p-4 rounded-full shadow-lg hover:bg-pink hover:scale-105 z-30"
+        className="fixed right-4 bottom-24 font-dosis font-medium text-xl bg-purple-400 text-white p-4 rounded-full shadow-lg hover:bg-pink hover:scale-105 z-30"
       >
         New Habit
       </button>
