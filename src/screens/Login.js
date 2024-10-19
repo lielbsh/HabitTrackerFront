@@ -32,7 +32,7 @@ const Login = () => {
       const loggedInUser = await logIn(formData, setUser);
   
       if (loggedInUser) {
-        navigate('/HabitTrackerFront/home');
+        navigate('/home');
       } else {
         setErrorMessage('Invalid username or password');
       }
@@ -84,20 +84,9 @@ const Login = () => {
           />
         </form>
         <p className="text-center text-grayCustom">
-          Don’t have an account? 
-          <Link to="=/signup" className="text-pink font-bold hover:underline">Sign up</Link>
+          Don’t have an account? <a href="/signup" className="text-pink font-bold hover:underline">Sign up</a>
         </p>
       </div>
-      {/* <img
-        src="/images/backgroundVines.png"
-        className="absolute bottom-0 right-0 object-cover opacity-50 h-1/2"
-        alt="Background Vines"
-      />
-      <img
-        src="/images/backgroundVines2.png"
-        className="absolute top-40 right-40 object-cover opacity-50 rotate-180 h-1/3"
-        alt="Background Vines"
-      /> */}
     </div>
   );
 };
