@@ -10,9 +10,9 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/HabitTrackerFront/" element={<Login/>} />
-        <Route path="/HabitTrackerFront/signup" element={<Signup />} />
-        <Route path="/HabitTrackerFront/home" element={<HomePage />} />
-        <Route path="/HabitTrackerFront/analytics" element={<Analytics />} />
+        <Route path="/HabitTrackerFront/signup/" element={<Signup />} />
+        <Route path="/HabitTrackerFront/home/" element={<HomePage />} />
+        <Route path="/HabitTrackerFront/analytics/" element={<Analytics />} />
       </Routes>
     </Router>
   );
