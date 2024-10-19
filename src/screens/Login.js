@@ -30,7 +30,7 @@ const Login = () => {
       const loggedInUser = await logIn(formData, setUser);
   
       if (loggedInUser) {
-        navigate('/home');
+        navigate('/HabitTrackerFront/home');
       } else {
         setErrorMessage('Invalid username or password');
       }

@@ -41,7 +41,7 @@ const Signup = () => {
 
     try {
       await setUser(register(formData, setUser));
-      navigate('/home');
+      navigate('/HabitTrackerFront/home');
    
   } catch (error) {
     console.error('Error during login:', error);

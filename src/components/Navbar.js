@@ -11,15 +11,15 @@ const Navbar = () => {
 
   // Define navigation links
   const navLinks = [
-    { name: 'Home', path: '/home' },
-    { name: 'Analytics', path: '/analytics' },
-    { name: 'Logout', path: '/' }, // Path is still necessary for the link, but handled in the click event
+    { name: 'Home', path: '/HabitTrackerFront/home' },
+    { name: 'Analytics', path: '/HabitTrackerFront/analytics' },
+    { name: 'Logout', path: '/HabitTrackerFront/' }, // Path is still necessary for the link, but handled in the click event
   ];
 
   const handleLogout = async () => {
     await logout(setUser); // Call the logout function
     // Redirect to the login page
-    window.location.href = '/';
+    window.location.href = '/HabitTrackerFront/';
   };
 
   return (
