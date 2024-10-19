@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/lielbsh/HabitTrackerFront.git/static/css/main.031a0338.css",
+    "main.js": "/lielbsh/HabitTrackerFront.git/static/js/main.a2bda951.js",
+    "index.html": "/lielbsh/HabitTrackerFront.git/index.html",
+    "main.031a0338.css.map": "/lielbsh/HabitTrackerFront.git/static/css/main.031a0338.css.map",
+    "main.a2bda951.js.map": "/lielbsh/HabitTrackerFront.git/static/js/main.a2bda951.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.031a0338.css",
+    "static/js/main.a2bda951.js"
+  ]
+}
