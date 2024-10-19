@@ -3,6 +3,8 @@ import { logIn } from '../api/userScript';
 import { useUserData } from '../context/userContext';
 import { useNavigate } from 'react-router-dom';
 import SubmitButton from '../components/SubmitButton';
+import { Link } from 'react-router-dom';
+
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -82,7 +84,8 @@ const Login = () => {
           />
         </form>
         <p className="text-center text-grayCustom">
-          Don’t have an account? <a href="/HabitTrackerFront/signup" className="text-pink font-bold hover:underline">Sign up</a>
+          Don’t have an account? 
+          <Link to="=/signup" className="text-pink font-bold hover:underline">Sign up</Link>
         </p>
       </div>
       {/* <img
