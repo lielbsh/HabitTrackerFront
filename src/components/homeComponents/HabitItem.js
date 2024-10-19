@@ -60,7 +60,11 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
             {/* Animated GIF */}
             {showGif && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
-                <img src="..\..\icons\yellow-v.gif" className="w-15 h-15 object-cover" alt="Completed" />
+                <img 
+                src={`${process.env.PUBLIC_URL}/icons/yellow-v.gif`}
+                className="w-15 h-15 object-cover" 
+                alt="Completed" 
+                />
             </div>
             )}
             {/* Expanded Section for Details and Editing */}

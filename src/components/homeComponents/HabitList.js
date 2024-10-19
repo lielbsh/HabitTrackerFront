@@ -132,7 +132,11 @@ const HabitList = () => {
                         {isStreak && (
                             <div className="flex flex-row fixed top-10 left-1/2 transform -translate-x-1/2 bg-white bg-opacity-90 text-mustard text-xl font-semibold py-2 px-4 rounded-full shadow-md transition-opacity duration-700 ease-out z-50 items-center">
                                it's a sreak! 
-                               <img src="/icons/fire.gif" className="w-5 h-5 mix-blend-multiply" alt="Completed" />
+                               <img 
+                               src={`${process.env.PUBLIC_URL}/icons/fire.gif`} 
+                               className="w-5 h-5 mix-blend-multiply" 
+                               alt="Completed" 
+                               />
                             </div>
                         )}
                         {habits.daily.map((habit) => (
