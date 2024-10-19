@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = 'http://localhost:8000/habits'
+const api = 'https://habit-tracker-63zr.onrender.com/habits' || 'http://localhost:8000/habits';
 
 
 // Create a new habit

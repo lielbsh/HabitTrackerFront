@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiEndpoint = 'http://localhost:8000'; 
+const apiEndpoint = 'https://habit-tracker-63zr.onrender.com' || 'http://localhost:8000';
 
 export const register = async (newUserData, setUser) => { 
 // input: {userName: '', password: ''}
