@@ -3,6 +3,7 @@ import { useUserData } from '../context/userContext';
 import SubmitButton from '../components/SubmitButton';
 import { register } from '../api/userScript';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -120,7 +121,7 @@ const Signup = () => {
           />
         </form>
         <p className="text-center text-grayCustom">
-          Already have an account? <a href="/" className="text-pink font-bold hover:underline">Log in</a>
+          Already have an account? <Link to='/' className="text-pink font-bold hover:underline">Log in</Link>
         </p>
       </div>
     </div>
