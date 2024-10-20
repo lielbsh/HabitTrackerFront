@@ -2,7 +2,12 @@
 
 Track your daily, weekly, and monthly habits with ease. Visualize your progress and stay motivated by keeping track of your streaks over time.
 
-## ✨ Explore it here: [Habit Tracker](https://lielbsh.github.io/HabitTrackerFront/) ✨
+### ✨ Explore it here: [Habit Tracker](https://lielbsh.github.io/HabitTrackerFront/) ✨
+
+You can create an account or log in with the test credentials:
+- **Username**: testuser
+- **Password**: 123
+
 ---
 
 ## 🌟 Features
@@ -10,6 +15,10 @@ Track your daily, weekly, and monthly habits with ease. Visualize your progress 
 - **Track daily, weekly, and monthly habits**
 - **Visual streaks**: See your progress with clear visuals for each habit
 - **Historical data**: Review your best streaks of all time
+- **MongoDB** for data storage
+- **Security Measures**
+-- Passwords are securely hashed using **bcrypt**.
+-- Authentication is handled with **JWT (JSON Web Tokens)** and cookies for secure access.
 
 ## ⚙️ Technologies Used (Backend)
 &emsp;
