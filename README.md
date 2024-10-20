@@ -16,9 +16,9 @@ You can create an account or log in with the test credentials:
 - **Visual streaks**: See your progress with clear visuals for each habit
 - **Historical data**: Review your best streaks of all time
 - **MongoDB** for data storage
-- **Security Measures**
--- Passwords are securely hashed using **bcrypt**.
--- Authentication is handled with **JWT (JSON Web Tokens)** and cookies for secure access.
+- **Security Measures**:
+  - Passwords are securely hashed using **bcrypt**.
+  - Authentication is handled with **JWT (JSON Web Tokens)** and cookies for secure access.
 
 ## ⚙️ Technologies Used (Backend)
 &emsp;
