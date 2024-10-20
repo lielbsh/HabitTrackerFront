@@ -1,8 +1,8 @@
 # 🏆 Habit Tracker
 
 Track your daily, weekly, and monthly habits with ease. Visualize your progress and stay motivated by keeping track of your streaks over time.
----
-✨ Explore it here: [Habit Tracker](https://lielbsh.github.io/HabitTrackerFront/) ✨
+
+## ✨ Explore it here: [Habit Tracker](https://lielbsh.github.io/HabitTrackerFront/) ✨
 ---
 
 ## 🌟 Features
