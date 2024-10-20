@@ -4,7 +4,7 @@ Track your daily, weekly, and monthly habits with ease. Visualize your progress 
 
 ### ✨ Explore it here: [Habit Tracker](https://lielbsh.github.io/HabitTrackerFront/) ✨
 
-You can create an account or log in with the test credentials:
+You can create new account or log in with the test credentials:
 - **Username**: testuser
 - **Password**: 123
 
