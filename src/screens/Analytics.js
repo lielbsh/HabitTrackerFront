@@ -9,10 +9,11 @@ const Analytics = () => {
   return (
     <div className="flex flex-col h-screen bg-slate-100 font-sans relative overflow-auto">
       <Navbar />
-      <HabitsChart />
-      <BestStreaks/>
-
-      <Footer className="mt-auto"/>
+      <div className="px-20 py-10">
+        <HabitsChart />
+        <BestStreaks/>
+      </div>
+      <Footer/>
     </div>
     
   );

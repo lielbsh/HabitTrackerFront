@@ -110,7 +110,7 @@ const HabitList = () => {
 
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 container mx-auto px-12 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 container mx-auto py-8">
             {/* Daily Habits Column */}
             {habits.daily.length > 0 && (
                 <div className="p-6 rounded-lg bg-white shadow-lg">

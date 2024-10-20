@@ -33,14 +33,14 @@ const BestStreaks = () => {
   
 
   return (
-    <div className="p-16 font-sans">
+  <div className="py-16 font-sans">
     <h1 className="text-3xl text-center font-bold text-grayCustom mb-8">Your Best Current Streaks</h1>
     
-    <div className="flex justify-center space-x-6">
+    <div className="flex flex-col sm:flex-row justify-center space-y-6 sm:space-y-0 sm:space-x-6">
       {/* Best Daily Streak */}
-      <div className="bg-gradient-to-r from-background-lightYellow to-background-lightGreen p-6 rounded-lg shadow-custom-light w-1/3 text-center transform transition duration-500 hover:scale-105">
+      <div className="bg-gradient-to-r from-background-lightYellow to-background-lightGreen p-6 rounded-lg shadow-custom-light w-full sm:w-1/3 text-center transform transition duration-500 hover:scale-105">
         <h2 className="text-2xl font-semibold mb-2 flex justify-center items-center">
-          <FaTrophy className="text-yellow-500 mr-2  " /> Daily Streak
+          <FaTrophy className="text-yellow-500 mr-2" /> Daily Streak
         </h2>
         {bestCurrentHabit.bestDailyStreak.streak ? (
           <>
@@ -53,7 +53,7 @@ const BestStreaks = () => {
       </div>
 
       {/* Best Weekly Streak */}
-      <div className="bg-gradient-to-r from-background-lightPurple to-background-lightPink p-6 rounded-lg shadow-custom-light w-1/3 text-center transform transition duration-500 hover:scale-105">
+      <div className="bg-gradient-to-r from-background-lightPurple to-background-lightPink p-6 rounded-lg shadow-custom-light w-full sm:w-1/3 text-center transform transition duration-500 hover:scale-105">
         <h2 className="text-2xl font-semibold mb-2 flex justify-center items-center">
           <FaTrophy className="text-yellow-500 mr-2" /> Weekly Streak
         </h2>
@@ -68,7 +68,7 @@ const BestStreaks = () => {
       </div>
 
       {/* Best Monthly Streak */}
-      <div className="bg-gradient-to-r from-background-babyBlue to-background-lightPurple p-6 rounded-lg shadow-custom-light w-1/3 text-center transform transition duration-500 hover:scale-105">
+      <div className="bg-gradient-to-r from-background-babyBlue to-background-lightPurple p-6 rounded-lg shadow-custom-light w-full sm:w-1/3 text-center transform transition duration-500 hover:scale-105">
         <h2 className="text-2xl font-semibold mb-2 flex justify-center items-center">
           <FaTrophy className="text-yellow-500 mr-2" /> Monthly Streak
         </h2>
@@ -88,9 +88,9 @@ const BestStreaks = () => {
     {/* Best of All Time Section */}
     <h1 className="text-3xl font-bold text-center text-grayCustom mt-10 mb-4 animate-fadeIn">Your Best Streaks of All Time</h1>
     
-    <div className="flex justify-center space-x-6">
+    <div className="flex flex-col sm:flex-row justify-center space-y-6 sm:space-y-0 sm:space-x-6">
       {/* Best Daily Streak of All Time */}
-      <div className="bg-gradient-to-r from-background-lightYellow to-background-lightGreen p-6 rounded-lg shadow-custom-light w-1/3 text-center transform transition duration-500 hover:scale-105">
+      <div className="bg-gradient-to-r from-background-lightYellow to-background-lightGreen p-6 rounded-lg shadow-custom-light w-full sm:w-1/3 text-center transform transition duration-500 hover:scale-105">
         <h2 className="text-2xl font-semibold mb-2 flex justify-center items-center">
           <FaTrophy className="text-yellow-500 mr-2" /> Daily Streak
         </h2>
@@ -105,7 +105,7 @@ const BestStreaks = () => {
       </div>
 
       {/* Best Weekly Streak of All Time */}
-      <div className="bg-gradient-to-r from-background-lightPurple to-background-lightPink p-6 rounded-lg shadow-custom-light w-1/3 text-center transform transition duration-500 hover:scale-105">
+      <div className="bg-gradient-to-r from-background-lightPurple to-background-lightPink p-6 rounded-lg shadow-custom-light w-full sm:w-1/3 text-center transform transition duration-500 hover:scale-105">
         <h2 className="text-2xl font-semibold mb-2 flex justify-center items-center">
           <FaTrophy className="text-yellow-500 mr-2" /> Weekly Streak
         </h2>
@@ -120,7 +120,7 @@ const BestStreaks = () => {
       </div>
 
       {/* Best Monthly Streak of All Time */}
-      <div className="bg-gradient-to-r from-background-babyBlue to-background-lightPurple p-6 rounded-lg shadow-custom-light w-1/3 text-center transform transition duration-500 hover:scale-105">
+      <div className="bg-gradient-to-r from-background-babyBlue to-background-lightPurple p-6 rounded-lg shadow-custom-light w-full sm:w-1/3 text-center transform transition duration-500 hover:scale-105">
         <h2 className="text-2xl font-semibold mb-2 flex justify-center items-center">
           <FaTrophy className="text-yellow-500 mr-2" /> Monthly Streak
         </h2>
@@ -135,7 +135,6 @@ const BestStreaks = () => {
       </div>
     </div>
   </div>
-
   );
 };
 

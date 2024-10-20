@@ -48,7 +48,7 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
                 <button
                     onClick={(e) => { e.stopPropagation(); handleCompleteClick(habit); }}
                     className={`mr-2 rounded-full p-2 transition-colors duration-200 
-                        ${isCompleted ? 'bg-mustard text-teal-50' : 'bg-teal-50 hover:bg-pink text-gray-400'}`}
+                        ${isCompleted ? 'bg-mustard text-teal-50' : 'bg-teal-50 hover:bg-pink hover:text-teal-50 text-gray-400'}`}
                     aria-label="Mark as complete"
                     disabled={isCompleted}
                 >

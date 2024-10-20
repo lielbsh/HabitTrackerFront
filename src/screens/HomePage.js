@@ -15,7 +15,7 @@ const HomePage = () => {
     <div className="flex flex-col h-screen bg-slate-100 font-sans relative overflow-auto">
       <Navbar />
 
-      <div className="flex-grow">
+      <div className="flex-grow pb-20 px-20">
         <HabitList />
       </div>
 
@@ -45,7 +45,7 @@ const HomePage = () => {
       </div>
 
       {/* Footer */}
-      <Footer className="mt-auto" /> 
+      <Footer/> 
     </div>
   );
 };
