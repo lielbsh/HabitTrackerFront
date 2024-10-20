@@ -14,7 +14,7 @@ import {
 import { format, parse } from 'date-fns';
 
 
-export const HabitsChart = () => {
+const HabitsChart = () => {
   const { user } = useUserData();
   const habits = user.habits;
   
@@ -29,14 +29,14 @@ export const HabitsChart = () => {
 const CustomTick = ({ x, y, payload }) => {
   const date = parse(payload.value, 'dd-MM-yy', new Date());
   const dayOfWeek = format(date, 'EEE'); // Get day of the week (e.g., 'Mon')
-  const formattedDate = format(date, 'dd/MM/yy'); // Format the date
+  const formattedDate = format(date, 'dd/MM'); // Format the date
 
   return (
     <g transform={`translate(${x},${y})`}>
-      <text x={0} y={0} dy={10} textAnchor="middle" fill="#666">
+      <text x={0} y={0} dy={10} textAnchor="middle" fill="#666" fontSize={14}>
         {formattedDate}
       </text>
-      <text x={0} y={14} dy={10} textAnchor="middle" fill="#666">
+      <text x={0} y={14} dy={10} textAnchor="middle" fill="#666" fontSize={14}>
         {dayOfWeek}
       </text>
     </g>
@@ -45,7 +45,7 @@ const CustomTick = ({ x, y, payload }) => {
 
   return (
   <div className="flex flex-col items-center bg-white rounded-lg shadow-lg py-8">
-    <h2 className="text-2xl font-semibold border-b-2 border-gray-300 pb-2 text-grayCustom mb-4">Track Your Progress</h2>
+    <h2 className="text-3xl font-semibold border-b-2 border-gray-300 pb-2 text-grayCustom mb-4">Track Your Progress</h2>
 
     {/* Scrollable Container */}
     <div className="w-full overflow-x-auto">
@@ -59,6 +59,7 @@ const CustomTick = ({ x, y, payload }) => {
               dataKey="date"
               tick={<CustomTick />}
               tickMargin={5} // Adjust margin for extra space
+              interval={0}
             />
             <YAxis type="number" allowDecimals={false} />
             <Tooltip />
@@ -72,3 +73,5 @@ const CustomTick = ({ x, y, payload }) => {
   </div>
   );
 };
+
+export default HabitsChart;

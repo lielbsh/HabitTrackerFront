@@ -1,5 +1,5 @@
 import React from 'react';
-import { HabitsChart } from '../components/analyticsComponents/HabitsChart';
+import HabitsChart from '../components/analyticsComponents/HabitsChart';
 import Navbar from '../components/Navbar';
 import  BestStreaks from '../components/analyticsComponents/BestStreaks';
 import Footer from '../components/Footer';

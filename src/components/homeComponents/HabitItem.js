@@ -29,6 +29,7 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
         handleUpdate(updatedHabit); 
         setIsEditing(false);
         setIsSubmitting(false);
+        console.log('updatedHabit',updatedHabit);
     };
 
     return (
@@ -94,10 +95,13 @@ const HabitItem = ({ habit, color, handleDelete, handleComplete, isCompleted, ha
                                 onChange={handleEditChange}
                                 required
                                 className="block w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring-pink focus:border-pink transition duration-200"
-                            >
-                                <option value="daily">Daily</option>
-                                <option value="weekly">Weekly</option>
-                                <option value="monthly">Monthly</option>
+                                >
+                                <option value="" disabled>
+                                    Select Frequency
+                                </option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
                             </select>
 
                             {/* Custom SubmitButton component */}
