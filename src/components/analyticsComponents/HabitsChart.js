@@ -24,6 +24,7 @@ const HabitsChart = () => {
   }
 
   const chartData = prepareChartData(habits);
+  const reversedChartData = chartData.reverse();
   const chartWidth = chartData.length * 90;
 
 const CustomTick = ({ x, y, payload }) => {
@@ -50,9 +51,9 @@ const CustomTick = ({ x, y, payload }) => {
     {/* Scrollable Container */}
     <div className="w-full overflow-x-auto">
       {/* Inner Container with responsive width */}
-      <div className="w-full" style={{ maxWidth: chartWidth }}>
+      <div className="w-full" style={{ minWidth: `${chartWidth}px` }}>
         <ResponsiveContainer width="100%" height={400}>
-          <BarChart data={chartData} align="center">
+          <BarChart data={reversedChartData} align="center">
             <Legend verticalAlign="top" align="center" />
             <CartesianGrid />
             <XAxis
